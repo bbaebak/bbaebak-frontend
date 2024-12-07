@@ -44,4 +44,14 @@ const postRequest = async (
   });
 };
 
-export { getRequest, postRequest };
+const patchRequest = async (
+  apiUrl: string,
+  data?: any,
+  config?: AxiosRequestConfig
+) => {
+  await instance.put(`${apiUrl}`, data, {
+    ...config,
+  });
+};
+
+export { getRequest, patchRequest, postRequest };
