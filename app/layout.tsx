@@ -1,3 +1,4 @@
+import './styles/globals.css';
 import KakaoScript from './KakaoScript';
 
 declare global {
