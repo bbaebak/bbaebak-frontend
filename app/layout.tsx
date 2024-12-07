@@ -1,4 +1,11 @@
 import './styles/globals.css';
+import KakaoScript from './KakaoScript';
+
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
 
 export default function RootLayout({
   children,
@@ -8,6 +15,7 @@ export default function RootLayout({
   return (
     <html>
       <body>{children}</body>
+      <KakaoScript />
     </html>
   );
 }
