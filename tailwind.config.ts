@@ -21,6 +21,20 @@ export default {
         medium18: ['1.8rem', { fontWeight: 500 }],
         medium16: ['1.6rem', { fontWeight: 500 }],
       },
+      keyframes: {
+        'fade-in': {
+          '0%': { opacity: '0', transform: 'translate(-50%, 10px)' },
+          '100%': { opacity: '1', transform: 'translate(-50%, 0)' },
+        },
+        'fade-out': {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in 0.3s ease-out',
+        'fade-out': 'fade-out 0.3s ease-out',
+      },
     },
   },
   plugins: [],
