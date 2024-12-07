@@ -14,7 +14,7 @@ interface CalendarProps {
 
 function CustomCalendar({ isVisible, onClose, onDateSelect }: CalendarProps) {
   const today = new Date();
-  const [date, setDate] = useState<Value>(today);
+  const [date, setDate] = useState<Value>([today, today]);
   const [isMounted, setIsMounted] = useState(false);
   const [activeStartDate, setActiveStartDate] = useState<Date>(today);
   const calendarRef = useRef<HTMLDivElement>(null);
@@ -43,8 +43,9 @@ function CustomCalendar({ isVisible, onClose, onDateSelect }: CalendarProps) {
   const handleSelectAllDates = () => {
     const startOfMonth = moment(activeStartDate).startOf('month').toDate();
     const endOfMonth = moment(activeStartDate).endOf('month').toDate();
-    setDate([startOfMonth, endOfMonth]);
-    onDateSelect([startOfMonth, endOfMonth]);
+    const fullMonthRange: [Date, Date] = [startOfMonth, endOfMonth];
+    setDate(fullMonthRange);
+    onDateSelect(fullMonthRange);
   };
 
   const minDate = today;
