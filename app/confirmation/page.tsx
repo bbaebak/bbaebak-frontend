@@ -5,7 +5,6 @@ import RefreshButton from './components/button/RefreshButton';
 import SaveImageButton from './components/button/SaveImageButton';
 import ShareButton from './components/button/ShareButton';
 import Signature from './components/sign/Signature';
-import Title from './components/Title';
 import mockData from './mockData.json';
 
 const URL = '서버 주소';
@@ -28,14 +27,17 @@ export default async function Confirmation() {
   console.log('약속한 사람들', mate);
   return (
     <div className="flex flex-col w-[430px] h-[988px] bg-sky-500/100">
-      <section className="flex items-center">
-        <h1>빼박 증명서</h1>
+      <section id="signDocument" className="">
+        <div className="flex items-center">
+          <h1>빼박 증명서</h1>
+        </div>
+        <section className="flex flex-col bg-white">
+          <Date value={createdDate} />
+          <Contents {...currentData[0]} />
+          <Signature maker={maker} mate={mate} stamp={stamp} />
+        </section>
       </section>
-      <section className="flex flex-col bg-white">
-        <Date value={createdDate} />
-        <Contents {...currentData[0]} />
-        <Signature maker={maker} mate={mate} stamp={stamp} />
-      </section>
+
       <section>
         <div>
           <SaveImageButton />
