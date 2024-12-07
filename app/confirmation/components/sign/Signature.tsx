@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sign from './components/Sign';
 
 export default function Signature({ maker, mate, stamp }) {
   console.log('서명 데이터', maker, mate, stamp);
   const [onSign, setOnSign] = useState([]);
+
   const handleClick = value => {
     console.log('클릭했다', value);
     setOnSign(true);

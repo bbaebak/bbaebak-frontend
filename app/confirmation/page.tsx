@@ -1,9 +1,9 @@
 import Contents from './components/contents/Contents';
-import Date from './components/Date';
-import NewButton from './components/NewButton';
-import RefreshButton from './components/RefreshButton';
-import SaveButton from './components/SaveButton';
-import ShareButton from './components/ShareButton';
+import Date from './components/contents/Date';
+import NewButton from './components/button/NewButton';
+import RefreshButton from './components/button/RefreshButton';
+import SaveImageButton from './components/button/SaveImageButton';
+import ShareButton from './components/button/ShareButton';
 import Signature from './components/sign/Signature';
 import Title from './components/Title';
 import mockData from './mockData.json';
@@ -38,7 +38,7 @@ export default async function Confirmation() {
       </section>
       <section>
         <div>
-          <SaveButton />
+          <SaveImageButton />
           <ShareButton />
         </div>
         <NewButton />
