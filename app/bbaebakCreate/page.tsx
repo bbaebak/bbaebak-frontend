@@ -40,6 +40,10 @@ function BbaebakCreate() {
     }
   };
 
+  const handleMateRemove = (mateName: string) => {
+    setMateNames(prevNames => prevNames.filter(name => name !== mateName));
+  };
+
   const isFormValid = !nameError && !descriptionError && !mateCountError;
 
   return (
@@ -60,6 +64,7 @@ function BbaebakCreate() {
         mateNames={mateNames}
         onMateChange={handleMateNameChange}
         error={mateCountError}
+        onMateRemove={handleMateRemove}
       />
       <button disabled={!isFormValid}>제출</button>
     </div>

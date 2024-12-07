@@ -4,11 +4,13 @@ import React, { useState } from 'react';
 interface Props {
   mateNames: string[];
   onMateChange: (mateName: string) => void;
+  onMateRemove: (mateName: string) => void;
   error: string;
 }
 
-function MateInput({ mateNames, onMateChange, error }: Props) {
+function MateInput({ mateNames, onMateChange, onMateRemove, error }: Props) {
   const [mateName, setMateName] = useState('');
+  const [selectedMate, setSelectedMate] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.value;
@@ -28,6 +30,10 @@ function MateInput({ mateNames, onMateChange, error }: Props) {
     setMateName('');
   };
 
+  const handleMateClick = (mate: string) => {
+    setSelectedMate(prev => (prev === mate ? null : mate));
+  };
+
   return (
     <div>
       <input
@@ -38,10 +44,24 @@ function MateInput({ mateNames, onMateChange, error }: Props) {
         placeholder="👯‍♂️ 빼박 메이트 이름"
       />
       <button onClick={handleAddMate}>추가</button>
-      {error && <p>{error}</p>}
-      {mateNames.map((mate, index) => (
-        <p key={index}>{mate}</p>
-      ))}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <div>
+        {mateNames.map((mate, index) => (
+          <div key={index} onClick={() => handleMateClick(mate)}>
+            <p>{mate}</p>
+            {selectedMate === mate && (
+              <button
+                onClick={e => {
+                  e.stopPropagation();
+                  onMateRemove(mate);
+                }}
+              >
+                x
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
