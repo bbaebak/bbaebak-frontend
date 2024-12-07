@@ -47,13 +47,14 @@ function MateInput({ mateNames, onMateChange, onMateRemove, error }: Props) {
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <div>
         {mateNames.map((mate, index) => (
-          <div key={index} onClick={() => handleMateClick(mate)}>
-            <p>{mate}</p>
+          <div key={index}>
+            <p onClick={() => handleMateClick(mate)}>{mate}</p>
             {selectedMate === mate && (
               <button
                 onClick={e => {
                   e.stopPropagation();
                   onMateRemove(mate);
+                  setSelectedMate(null);
                 }}
               >
                 x
