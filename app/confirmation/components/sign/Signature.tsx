@@ -19,22 +19,22 @@ export default function Signature({ maker, mates, status }) {
         value={maker}
         onClick={handleClick}
         onSign={true}
-        className="col-start-2 row-start-3"
+        className="col-start-2 row-start-3 items-start"
       />
       {Array.isArray(mates) &&
         mates.map((item, index) => {
           let positionClass = '';
           // 각 항목의 위치 설정
           if (index === 0) {
-            positionClass = 'col-start-1 row-start-3'; // 2
+            positionClass = 'col-start-1 row-start-3 items-end'; // 2
           } else if (index === 1) {
-            positionClass = 'col-start-2 row-start-2'; // 4
+            positionClass = 'col-start-2 row-start-2 items-end'; // 4
           } else if (index === 2) {
-            positionClass = 'col-start-1 row-start-2'; // 3
+            positionClass = 'col-start-1 row-start-2 items-start'; // 3
           } else if (index === 3) {
-            positionClass = 'col-start-2 row-start-1'; // 6
+            positionClass = 'col-start-2 row-start-1 items-end'; // 6
           } else if (index === 4) {
-            positionClass = 'col-start-1 row-start-1'; // 5
+            positionClass = 'col-start-1 row-start-1 items-start'; // 5
           }
           return (
             <Sign

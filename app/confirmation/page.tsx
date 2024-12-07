@@ -35,7 +35,7 @@ export default async function Confirmation() {
 
   console.log('약속한 사람들', mates);
   return (
-    <div className="flex flex-col w-[430px] h-[817px] bg-sky-500/100">
+    <div className="flex flex-col w-[430px] h-[817px] ">
       <section className="flex items-center pt-[34px] pb-[24px]">
         <Title status={status} />
       </section>
@@ -47,7 +47,7 @@ export default async function Confirmation() {
         <Signature maker={maker} mates={mates} status={status} />
       </section>
       <section>
-        <div>
+        <div className="flex items-start gap-4 self-stretch">
           <SaveImageButton />
           <ShareButton />
         </div>

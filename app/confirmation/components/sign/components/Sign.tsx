@@ -13,7 +13,7 @@ export default function Sign({ value, id, isSigned, className, onClick }) {
   };
   return (
     <div
-      className={`${onSign ? 'text-red-500' : 'text-black'} flex justify-end items-start gap-[24px] ${className}`}
+      className={`${onSign ? 'text-red-500' : 'text-black'} flex fle-col  gap-[24px] ${className}`}
       onClick={handleClick}
     >
       <p>{value}</p>
