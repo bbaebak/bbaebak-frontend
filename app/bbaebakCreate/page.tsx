@@ -29,19 +29,21 @@ function BbaebakCreate() {
   const [mateCountError, setMateCountError] = useState('');
 
   const handleMateNameChange = (mateName: string) => {
+    if (mateNames.length >= MATE_MAX_LENGTH) {
+      setMateCountError(ERROR_MATE_LENGTH);
+      return;
+    }
+
     const mateError = validateMateNameExist(mateName, mateNames);
     setMateCountError(mateError || '');
     if (!mateError) {
       setMateNames(prevNames => [...prevNames, mateName]);
     }
-    if (mateNames.length >= MATE_MAX_LENGTH) {
-      setMateCountError(ERROR_MATE_LENGTH);
-      return;
-    }
   };
 
   const handleMateRemove = (mateName: string) => {
     setMateNames(prevNames => prevNames.filter(name => name !== mateName));
+    setMateCountError('');
   };
 
   const isFormValid = !nameError && !descriptionError && !mateCountError;
