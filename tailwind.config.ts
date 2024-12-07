@@ -14,6 +14,13 @@ export default {
       fontFamily: {
         sans: typography.sans,
       },
+      fontSize: {
+        semibold28: ['2.8rem', { fontWeight: 600 }],
+        bold22: ['2.2rem', { fontWeight: 700 }],
+        bold17: ['1.7rem', { fontWeight: 700 }],
+        medium18: ['1.8rem', { fontWeight: 500 }],
+        medium16: ['1.6rem', { fontWeight: 500 }],
+      },
     },
   },
   plugins: [],
