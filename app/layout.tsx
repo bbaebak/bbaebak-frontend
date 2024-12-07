@@ -1,13 +1,17 @@
 import '@styles/index.css';
+import QueryProvider from 'app/providers/QueryProvider';
+import { ReactNode } from 'react';
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html>
-      <body>{children}</body>
+      <QueryProvider>
+        <body>{children}</body>
+      </QueryProvider>
     </html>
   );
 }
