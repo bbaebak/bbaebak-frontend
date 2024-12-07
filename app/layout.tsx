@@ -1,5 +1,6 @@
 import '@styles/index.css';
 import QueryProvider from 'app/providers/QueryProvider';
+import { LazyMotion, domAnimation } from 'framer-motion';
 import { ReactNode } from 'react';
 
 export default function RootLayout({
@@ -10,7 +11,9 @@ export default function RootLayout({
   return (
     <html>
       <QueryProvider>
-        <body>{children}</body>
+        <LazyMotion features={domAnimation}>
+          <body>{children}</body>
+        </LazyMotion>
       </QueryProvider>
     </html>
   );
