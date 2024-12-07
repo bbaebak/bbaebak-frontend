@@ -13,11 +13,16 @@ export default function SaveImageButton() {
     const link = document.createElement('a');
     link.href = canvas.toDataURL('image/png');
     link.download = 'bbaebak-certificate.png';
+<<<<<<< HEAD
     link.click(); // 사용자가 클릭하지 않아도 다운로드 동작 실행됨
+=======
+    link.click();
+>>>>>>> feat/#14
 
     console.log('이미 저장히기', signDocument);
   };
 
+<<<<<<< HEAD
   return (
     <button
       onClick={handleSaveImage}
@@ -26,4 +31,7 @@ export default function SaveImageButton() {
       갤러리에 저장하기
     </button>
   );
+=======
+  return <button onClick={handleSaveImage}>갤러리에 저장하기</button>;
+>>>>>>> feat/#14
 }

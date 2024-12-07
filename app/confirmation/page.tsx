@@ -39,17 +39,20 @@ export default async function Confirmation() {
   return (
     <div className="flex flex-col w-[430px] h-[817px] ">
       <section className="signDocument">
-        <section className="flex items-center pt-[34px] pb-[24px]">
-          <Title status={status} />
-        </section>
-        <section className=" flex p-[24px] flex-col justify-center items-center gap-[12px] self-stretch rounded-[2px] bg-[#F6F5F2]">
-          <Date value={createdAt} />
-          <Contents {...currentData[0]} />
-          <Notice status={status} />
+        <section id="signDocument" className="">
+          <div className="flex items-center pt-[34px] pb-[24px]">
+            <Title status={status} />
+          </div>
+          <section className=" flex p-[24px] flex-col justify-center items-center gap-[12px] self-stretch rounded-[2px] bg-[#F6F5F2]">
+            <Date value={createdAt} />
+            <Contents {...currentData[0]} />
+            <Notice status={status} />
 
-          <Signature maker={maker} mates={mates} status={status} />
+            <Signature maker={maker} mates={mates} status={status} />
+          </section>
         </section>
       </section>
+
       <section>
         <div className="flex items-start gap-4 self-stretch mt-[24px]">
           <SaveImageButton />
