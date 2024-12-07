@@ -23,6 +23,7 @@ export default function KakaoShareButton() {
   //       },
   //     });
   //   } else {
+  // 이거 왜 푸시가 안되니이ㅣ이이
   //     console.log('Kakao SDK가 로드되지 않았습니다.');
   //   }
   // };
