@@ -2,19 +2,37 @@
   {
     "id": 1,
     "maker": "재이",
-    "mate": ["블랙", "물고기", "티아", "스리", "퉁퉁"],
-    "createdDate": "2024년 12월 7일",
-    "appointmentDate": "12월 안에",
-    "contents": "밥 먹기밥 먹기밥 먹기밥 먹기밥 먹기밥 먹기밥 먹기밥 먹기밥 먹기밥 먹기",
-    "stamp": []
-  },
-  {
-    "id": 2,
-    "maker": "재이",
-    "mate": ["블랙", "물고기", "티아", "스리", "퉁퉁"],
-    "createdDate": "2024년 12월 7일",
-    "appointmentDate": "12월 안에",
-    "contents": "테스트 2번",
-    "stamp": []
+    "date": "12월 중으로",
+    "desc": "밥 먹기밥 먹기밥 먹기밥 먹기밥 먹기밥 먹기밥 먹기밥 ",
+    "status": "signed",
+    "mates": [
+      {
+        "id": "1",
+        "name": "블랙",
+        "isSigned": false
+      },
+      {
+        "id": "2",
+        "name": "물고기",
+        "isSigned": false
+      },
+      {
+        "id": "3",
+        "name": "티아",
+        "isSigned": false
+      },
+      {
+        "id": "4",
+        "name": "스리",
+        "isSigned": false
+      },
+      {
+        "id": "5",
+        "name": "퉁퉁",
+        "isSigned": false
+      }
+    ],
+    "createdAt": "2024년 12월 7일",
+    "updatedAt": "2024년 12월 7일"
   }
 ]
