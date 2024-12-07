@@ -1,5 +1,6 @@
 'use client';
 import { useValidation } from '@hooks/useValidation';
+import CustomCalendar from 'app/bbaebakCreate/components/calendar/Calendar';
 import DescriptionInput from 'app/bbaebakCreate/components/input/DescriptionInput';
 import MateInput from 'app/bbaebakCreate/components/input/mate/MateInput';
 import NameInput from 'app/bbaebakCreate/components/input/NameInput';
@@ -9,6 +10,7 @@ import {
   validateMateNameExist,
   validateName,
 } from 'app/utils/validation';
+import moment from 'moment';
 import { useState } from 'react';
 
 function BbaebakCreate() {
@@ -47,6 +49,18 @@ function BbaebakCreate() {
   };
 
   const isFormValid = !nameError && !descriptionError && !mateCountError;
+  const [IscalendarOpen, setIsCalendarOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<string>('');
+
+  const handleDateSelect = (date: any) => {
+    if (Array.isArray(date)) {
+      setSelectedDate(
+        `${moment(date[0]).format('YYYY년 MM월 DD일부터')} ${moment(date[1]).format('YYYY년 MM월 DD일 중에')}`
+      );
+    } else {
+      setSelectedDate(moment(date).format('YYYY년 MM월 DD일에'));
+    }
+  };
 
   return (
     <div>
@@ -56,6 +70,7 @@ function BbaebakCreate() {
         error={nameError}
         onBlur={() => handleNameBlur(validateName)}
       />
+
       <DescriptionInput
         value={description}
         onChange={e => setDescription(e.target.value)}
@@ -68,7 +83,23 @@ function BbaebakCreate() {
         error={mateCountError}
         onMateRemove={handleMateRemove}
       />
-      <button disabled={!isFormValid}>제출</button>
+      {IscalendarOpen && (
+        <CustomCalendar
+          isVisible={IscalendarOpen}
+          onClose={() => setIsCalendarOpen(false)}
+          onDateSelect={handleDateSelect}
+        />
+      )}
+
+      <button
+        className="toggle-button"
+        onClick={() => setIsCalendarOpen(prevState => !prevState)}
+      >
+        날짜 선택
+      </button>
+      {selectedDate && (
+        <div className="selected-date-display">{selectedDate}</div>
+      )}
     </div>
   );
 }

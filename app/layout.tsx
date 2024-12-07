@@ -12,7 +12,7 @@ export default function RootLayout({
       <QueryProvider>
         <body className="flex flex-row items-center justify-center w-screen h-screen bg-[#e0e2e6]">
           {/* <AboutService /> */}
-          <div className="flex flex-col items-center w-full h-full max-w-[430px] bg-white">
+          <div className="relative flex flex-col items-center w-full h-full max-w-[430px] bg-white">
             {children}
           </div>
         </body>
