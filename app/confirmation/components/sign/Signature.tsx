@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Sign from './components/Sign';
+import Stamp from './components/Stamp';
 
 export default function Signature({ maker, mates, status }) {
   console.log('서명 데이터', maker, mates, status);

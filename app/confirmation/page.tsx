@@ -13,6 +13,8 @@ import Image from 'next/image';
 import polygon from '@public/polygon.svg';
 import SignAlarm from './components/button/Notice';
 import Notice from './components/button/Notice';
+import stamp1 from '@public/stamp/1.svg';
+import Stamp from './components/sign/components/Stamp';
 // import { useParams } from 'next/navigation';
 
 const URL = 'https://port-0-bbaebak-nestjs-m4eg5ca3338e8c5c.sel4.cloudtype.app';
@@ -36,18 +38,20 @@ export default async function Confirmation() {
   console.log('약속한 사람들', mates);
   return (
     <div className="flex flex-col w-[430px] h-[817px] ">
-      <section className="flex items-center pt-[34px] pb-[24px]">
-        <Title status={status} />
-      </section>
-      <section className="flex p-[24px] flex-col justify-center items-center gap-[12px] self-stretch rounded-[2px] bg-[#F6F5F2]">
-        <Date value={createdAt} />
-        <Contents {...currentData[0]} />
-        <Notice status={status} />
+      <section className="signDocument">
+        <section className="flex items-center pt-[34px] pb-[24px]">
+          <Title status={status} />
+        </section>
+        <section className=" flex p-[24px] flex-col justify-center items-center gap-[12px] self-stretch rounded-[2px] bg-[#F6F5F2]">
+          <Date value={createdAt} />
+          <Contents {...currentData[0]} />
+          <Notice status={status} />
 
-        <Signature maker={maker} mates={mates} status={status} />
+          <Signature maker={maker} mates={mates} status={status} />
+        </section>
       </section>
       <section>
-        <div className="flex items-start gap-4 self-stretch">
+        <div className="flex items-start gap-4 self-stretch mt-[24px]">
           <SaveImageButton />
           <ShareButton />
         </div>

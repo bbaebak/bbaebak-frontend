@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Stamp from './Stamp';
 
 export default function Sign({ value, id, isSigned, className, onClick }) {
   const [onSign, setOnSign] = useState(isSigned);
@@ -17,7 +18,16 @@ export default function Sign({ value, id, isSigned, className, onClick }) {
       onClick={handleClick}
     >
       <p>{value}</p>
-      <p>인</p>
+      <div className="relative inline-block">
+        <p className="inline">인</p>
+        {onSign && (
+          <Stamp
+            className={
+              'absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+            }
+          />
+        )}
+      </div>
     </div>
   );
 }
