@@ -1,32 +1,30 @@
+'use client';
+
 import { useEffect } from 'react';
 
 export default function KakaoShareButton() {
-  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
-
-  const description = '카카오톡 공유하기 테스트입니다.';
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const { Kakao } = window;
-
-      if (!Kakao.isInitialized()) {
-        Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
-      }
-    }
-  }, []);
-
-  const handleShare = () => {
-    const { Kakao } = window;
-
-    Kakao.Share.sendDefault({
-      objectType: 'text',
-      text: description,
-      link: {
-        mobileWebUrl: shareUrl,
-        webUrl: shareUrl,
-      },
+  const handleShearToKakao = () => {
+    const { Kakao, location } = window;
+    Kakao.Share.sendScrap({
+      requestUrl: location.href,
     });
   };
+  // const handleShare = () => {
+  //   if (typeof window !== 'undefined' && window.Kakao) {
+  //     const { Kakao } = window;
 
-  return <div onClick={handleShare}> 카카오톡 공유하기</div>;
+  //     Kakao.Share.sendDefault({
+  //       objectType: 'text',
+  //       text: description,
+  //       link: {
+  //         mobileWebUrl: shareUrl,
+  //         webUrl: shareUrl,
+  //       },
+  //     });
+  //   } else {
+  //     console.log('Kakao SDK가 로드되지 않았습니다.');
+  //   }
+  // };
+
+  return <div onClick={handleShearToKakao}> 카카오톡 공유하기</div>;
 }

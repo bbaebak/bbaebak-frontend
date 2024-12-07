@@ -1,3 +1,5 @@
+import KakaoScript from './KakaoScript';
+
 declare global {
   interface Window {
     Kakao: any;
@@ -12,10 +14,7 @@ export default function RootLayout({
   return (
     <html>
       <body>{children}</body>
-      <Script
-        src="https://developers.kakao.com/sdk/js/kakao.js"
-        strategy="afterInteractive"
-      />
+      <KakaoScript />
     </html>
   );
 }
