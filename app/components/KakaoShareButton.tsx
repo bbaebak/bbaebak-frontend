@@ -29,7 +29,7 @@ export default function KakaoShareButton() {
 
   return (
     <div
-      className="flex w-[63px] h-[60px] justify-center items-center rounded-full bg-[#FFEB00] cursor-pointer"
+      className="flex w-[63px] h-[60px] justify-center items-center rounded-full cursor-pointer bg-[#FFEB00]"
       onClick={handleShearToKakao}
     >
       <Image src={kakaoIcon} alt="카카오 공유하기" className="w-6 h-6" />
