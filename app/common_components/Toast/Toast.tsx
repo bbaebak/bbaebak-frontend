@@ -1,5 +1,6 @@
 'use client';
 import FluentLink from '@assets/svg/FluentLink';
+import ExclamationTriangle from '@assets/svg/ExclamationTriangle';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -7,9 +8,15 @@ interface ToastProps {
   message: string;
   isVisible: boolean;
   position?: 'top' | 'bottom';
+  type?: 'success' | 'error';
 }
 
-function Toast({ message, isVisible, position = 'bottom' }: ToastProps) {
+function Toast({
+  message,
+  isVisible,
+  position = 'bottom',
+  type = 'success',
+}: ToastProps) {
   const [shouldRender, setShouldRender] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
 
@@ -35,16 +42,16 @@ function Toast({ message, isVisible, position = 'bottom' }: ToastProps) {
     <div
       className={`
         fixed left-1/2 ${positionClass}
-        w-[397px] px-6 py-4
+        w-[39.7rem] px-6 py-4
         flex justify-center items-center gap-3
-        bg-white border border-gray-2 rounded-lg
-        shadow-[0px_0px_12px_2px_rgba(0,0,0,0.12)]
+        bg-white border border-gray-2 rounded-[0.8rem]
+        shadow-[0px_0px_1.2rem_0.2rem_rgba(0,0,0,0.12)]
         text-bold17 z-50
         transform-gpu translate-x-[-50%]
         ${animationClass}
       `}
     >
-      <FluentLink />
+      {type === 'success' ? <FluentLink /> : <ExclamationTriangle />}
       {message}
     </div>
   );

@@ -10,7 +10,9 @@ import {
   validateName,
 } from 'app/utils/validation';
 import { useState } from 'react';
+import SendCertificateBtn from './components/button/SendCertificateBtn';
 
+//TODO: 날짜 선택 컴포넌트 추가
 function BbaebakCreate() {
   const {
     value: name,
@@ -23,6 +25,16 @@ function BbaebakCreate() {
     setValue: setDescription,
     error: descriptionError,
     handleBlur: handleDescriptionBlur,
+  } = useValidation('');
+  const {
+    value: mateName,
+    setValue: setMateName,
+    error: mateNameError,
+  } = useValidation('');
+  const {
+    value: date,
+    setValue: setDate,
+    error: dateError,
   } = useValidation('');
 
   const [mateNames, setMateNames] = useState<string[]>([]);
@@ -46,7 +58,41 @@ function BbaebakCreate() {
     setMateCountError('');
   };
 
-  const isFormValid = !nameError && !descriptionError && !mateCountError;
+  const isAllFieldsFilled = Boolean(
+    name &&
+      description &&
+      mateNames.length > 0 &&
+      date &&
+      !nameError &&
+      !descriptionError &&
+      !mateCountError &&
+      !dateError
+  );
+
+  const validateAllFields = () => {
+    // 이름 검증
+    const nameError = validateName(name);
+    if (nameError) return nameError;
+
+    // 설명 검증
+    const descError = validateDescription(description);
+    if (descError) return descError;
+
+    // 메이트 검증
+    if (mateNames.length === 0) {
+      return '빼박 메이트를 한 명 이상 추가해주세요.';
+    }
+    if (mateNames.length > MATE_MAX_LENGTH) {
+      return ERROR_MATE_LENGTH;
+    }
+
+    // 날짜 검증
+    if (!date) {
+      return '날짜를 선택해주세요.';
+    }
+
+    return null;
+  };
 
   return (
     <div>
@@ -54,13 +100,13 @@ function BbaebakCreate() {
         value={name}
         onChange={e => setName(e.target.value)}
         error={nameError}
-        onBlur={() => handleNameBlur(validateName)}
+        onBlur={handleNameBlur}
       />
       <DescriptionInput
         value={description}
         onChange={e => setDescription(e.target.value)}
         error={descriptionError}
-        onBlur={() => handleDescriptionBlur(validateDescription)}
+        onBlur={handleDescriptionBlur}
       />
       <MateInput
         mateNames={mateNames}
@@ -68,7 +114,10 @@ function BbaebakCreate() {
         error={mateCountError}
         onMateRemove={handleMateRemove}
       />
-      <button disabled={!isFormValid}>제출</button>
+      <SendCertificateBtn
+        isEnabled={isAllFieldsFilled}
+        onValidate={validateAllFields}
+      />
     </div>
   );
 }
