@@ -1,3 +1,5 @@
+'use client';
+import { MediaQueryWrapper } from '@components/MediaQueryWrapper';
 import '@styles/index.css';
 import QueryProvider from 'app/providers/QueryProvider';
 import { LazyMotion, domAnimation } from 'framer-motion';
@@ -10,25 +12,21 @@ declare global {
   }
 }
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
   return (
-    <html>
+    <html className="overflow-hidden">
       <QueryProvider>
-        <body className="flex flex-row items-center justify-center w-screen h-screen bg-[#e0e2e6]">
-          {/* <AboutService /> */}
-          <div className="relative flex flex-col items-center w-full h-full max-w-[430px] bg-white">
+        <body className="flex items-center justify-center w-screen h-screen bg-[#F6F5F2] gap-[4px] overflow-hidden">
+          <MediaQueryWrapper>
             <KakaoScript />
             <Suspense fallback={<p>Loading</p>}>
-                 <LazyMotion features={domAnimation}>
-                   {children}
-                 </LazyMotion>
-             </Suspense>
-          </div>
+              <LazyMotion features={domAnimation}>{children}</LazyMotion>
+            </Suspense>
+          </MediaQueryWrapper>
         </body>
       </QueryProvider>
     </html>
