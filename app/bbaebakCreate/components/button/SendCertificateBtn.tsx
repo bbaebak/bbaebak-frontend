@@ -7,9 +7,10 @@ import { useState } from 'react';
 interface Props {
   isEnabled: boolean;
   onValidate: () => string | null;
+  onClick: () => void;
 }
 
-function SendCertificateBtn({ isEnabled, onValidate }: Props) {
+function SendCertificateBtn({ isEnabled, onValidate, onClick }: Props) {
   const [_, copy] = useCopyToClipboard();
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');

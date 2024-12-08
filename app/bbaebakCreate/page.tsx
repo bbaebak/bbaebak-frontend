@@ -1,123 +1,141 @@
 'use client';
-import { useValidation } from '@hooks/useValidation';
+
+import { useMutation } from '@tanstack/react-query';
+import { updateBbaebak } from 'app/api/apiList';
+import SendCertificateBtn from 'app/bbaebakCreate/components/button/SendCertificateBtn';
 import DescriptionInput from 'app/bbaebakCreate/components/input/DescriptionInput';
 import MateInput from 'app/bbaebakCreate/components/input/mate/MateInput';
 import NameInput from 'app/bbaebakCreate/components/input/NameInput';
-import { ERROR_MATE_LENGTH, MATE_MAX_LENGTH } from 'app/constants/validation';
-import {
-  validateDescription,
-  validateMateNameExist,
-  validateName,
-} from 'app/utils/validation';
-import { useState } from 'react';
-import SendCertificateBtn from './components/button/SendCertificateBtn';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import DateInput from './components/input/DateInput';
+import { useBbaebakForm } from './hooks/useBbaebakForm';
 
-//TODO: 날짜 선택 컴포넌트 추가
 function BbaebakCreate() {
   const {
-    value: name,
-    setValue: setName,
-    error: nameError,
-    handleBlur: handleNameBlur,
-  } = useValidation('');
-  const {
-    value: description,
-    setValue: setDescription,
-    error: descriptionError,
-    handleBlur: handleDescriptionBlur,
-  } = useValidation('');
-  const {
-    value: mateName,
-    setValue: setMateName,
-    error: mateNameError,
-  } = useValidation('');
-  const {
-    value: date,
-    setValue: setDate,
-    error: dateError,
-  } = useValidation('');
+    nameValidation,
+    descriptionValidation,
+    mateNames,
+    mateCountError,
+    selectedDate,
+    setSelectedDate,
+    handleMateNameChange,
+    handleMateRemove,
+    validateAllFields,
+  } = useBbaebakForm();
 
-  const [mateNames, setMateNames] = useState<string[]>([]);
-  const [mateCountError, setMateCountError] = useState('');
+  const [isClient, setIsClient] = useState(false);
+  const [id, setId] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const queryId = searchParams.get('id');
 
-  const handleMateNameChange = (mateName: string) => {
-    if (mateNames.length >= MATE_MAX_LENGTH) {
-      setMateCountError(ERROR_MATE_LENGTH);
-      return;
+  useEffect(() => {
+    dayjs.locale('ko');
+    setIsClient(true);
+    if (queryId) {
+      setId(queryId);
     }
+  }, [queryId]);
 
-    const mateError = validateMateNameExist(mateName, mateNames);
-    setMateCountError(mateError || '');
-    if (!mateError) {
-      setMateNames(prevNames => [...prevNames, mateName]);
+  const updateBbaebakMutation = useMutation({
+    mutationFn: () =>
+      updateBbaebak(
+        {
+          maker: nameValidation.value,
+          date: selectedDate!,
+          desc: descriptionValidation.value,
+          mates: mateNames.map(name => ({ name })),
+        },
+        id as string
+      ),
+    onSuccess: () => {
+      // 성공 시 처리
+    },
+    onError: error => {
+      console.error('실패:', error);
+    },
+  });
+
+  const handleSubmit = () => {
+    if (validateAllFields()) {
+      updateBbaebakMutation.mutate();
     }
   };
 
-  const handleMateRemove = (mateName: string) => {
-    setMateNames(prevNames => prevNames.filter(name => name !== mateName));
-    setMateCountError('');
-  };
-
-  const isAllFieldsFilled = Boolean(
-    name &&
-      description &&
-      mateNames.length > 0 &&
-      date &&
-      !nameError &&
-      !descriptionError &&
-      !mateCountError &&
-      !dateError
-  );
-
-  const validateAllFields = () => {
-    // 이름 검증
-    const nameError = validateName(name);
-    if (nameError) return nameError;
-
-    // 설명 검증
-    const descError = validateDescription(description);
-    if (descError) return descError;
-
-    // 메이트 검증
-    if (mateNames.length === 0) {
-      return '빼박 메이트를 한 명 이상 추가해주세요.';
-    }
-    if (mateNames.length > MATE_MAX_LENGTH) {
-      return ERROR_MATE_LENGTH;
-    }
-
-    // 날짜 검증
-    if (!date) {
-      return '날짜를 선택해주세요.';
-    }
-
+  if (!isClient) {
     return null;
-  };
+  }
 
   return (
-    <div>
-      <NameInput
-        value={name}
-        onChange={e => setName(e.target.value)}
-        error={nameError}
-        onBlur={handleNameBlur}
-      />
-      <DescriptionInput
-        value={description}
-        onChange={e => setDescription(e.target.value)}
-        error={descriptionError}
-        onBlur={handleDescriptionBlur}
-      />
-      <MateInput
-        mateNames={mateNames}
-        onMateChange={handleMateNameChange}
-        error={mateCountError}
-        onMateRemove={handleMateRemove}
-      />
-      <SendCertificateBtn
-        isEnabled={isAllFieldsFilled}
-        onValidate={validateAllFields}
-      />
+    <div className="min-h-screen w-full overflow-x-hidden px-5">
+      <div className="font-medium text-[1.3rem] flex items-center gap-4 mt-[30px]">
+        <Link href="/">
+          <Image src="/backBtn.svg" alt="뒤로가기" width={8} height={8} />
+        </Link>
+        가벼운 빼박 증명서 만들기
+      </div>
+
+      <div className="bg-[#f6f5f2] flex flex-col gap-2 p-10 pt-5 mt-[20px] min-h-[424px] h-auto rounded-[2px]">
+        <span className="text-[#97D0EC] text-center mb-4">
+          {dayjs().format('YYYY년 MM월 DD일')}
+        </span>
+
+        <div className="flex flex-col gap-[25px]">
+          <div className="flex gap-[5px]">
+            <NameInput
+              value={nameValidation.value}
+              onChange={e => nameValidation.setValue(e.target.value)}
+              error={nameValidation.error}
+              onBlur={nameValidation.handleBlur}
+            />
+            은/는
+          </div>
+
+          <div className="flex gap-[5px]">
+            <DateInput value={selectedDate} onChange={setSelectedDate} />에
+          </div>
+
+          <div className="flex gap-[5px]">
+            <MateInput
+              mateNames={mateNames}
+              onMateChange={handleMateNameChange}
+              error={mateCountError}
+              onMateRemove={handleMateRemove}
+            />
+            과 함께
+          </div>
+
+          <div className="flex gap-[5px]">
+            <DescriptionInput
+              value={descriptionValidation.value}
+              onChange={e => descriptionValidation.setValue(e.target.value)}
+              error={descriptionValidation.error}
+              onBlur={descriptionValidation.handleBlur}
+            />
+            를 약속합니다.
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 text-center">
+        <SendCertificateBtn
+          isEnabled={Boolean(
+            nameValidation.value &&
+              descriptionValidation.value &&
+              mateNames.length > 0 &&
+              selectedDate &&
+              !nameValidation.error &&
+              !descriptionValidation.error &&
+              !mateCountError
+          )}
+          onValidate={validateAllFields}
+          onClick={handleSubmit}
+        />
+      </div>
     </div>
   );
 }
