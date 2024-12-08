@@ -1,5 +1,7 @@
 'use client';
 import { useValidation } from '@hooks/useValidation';
+import { useMutation } from '@tanstack/react-query';
+import { postMakerSign, updateBbaebak } from 'app/api/apiList';
 import CustomCalendar from 'app/bbaebakCreate/components/calendar/Calendar';
 import DescriptionInput from 'app/bbaebakCreate/components/input/DescriptionInput';
 import MateInput from 'app/bbaebakCreate/components/input/mate/MateInput';
@@ -10,10 +12,11 @@ import {
   validateMateNameExist,
   validateName,
 } from 'app/utils/validation';
-import moment from 'moment';
 import { useState } from 'react';
 
+//TODO: design, get home id
 function BbaebakCreate() {
+  const [id, setId] = useState<string>('');
   const {
     value: name,
     setValue: setName,
@@ -50,17 +53,46 @@ function BbaebakCreate() {
 
   const isFormValid = !nameError && !descriptionError && !mateCountError;
   const [IscalendarOpen, setIsCalendarOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<string>('');
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const handleDateSelect = (date: any) => {
     if (Array.isArray(date)) {
-      setSelectedDate(
-        `${moment(date[0]).format('YYYY년 MM월 DD일부터')} ${moment(date[1]).format('YYYY년 MM월 DD일 중에')}`
-      );
+      setSelectedDate(date[0]);
     } else {
-      setSelectedDate(moment(date).format('YYYY년 MM월 DD일에'));
+      setSelectedDate(date);
     }
   };
+
+  const formattedMates = mateNames.map(name => ({ name }));
+
+  const updateBbaebakMutation = useMutation({
+    mutationFn: () =>
+      updateBbaebak(
+        {
+          maker: name,
+          date: selectedDate!,
+          desc: description,
+          mates: formattedMates,
+        },
+        id
+      ),
+    onSuccess: async data => {
+      console.log(data);
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
+
+  const makerSignedMutation = useMutation({
+    mutationFn: () => postMakerSign(true, id),
+    onSuccess: async data => {
+      console.log(data);
+    },
+    onError: error => {
+      console.log(error);
+    },
+  });
 
   return (
     <div>
@@ -97,9 +129,13 @@ function BbaebakCreate() {
       >
         날짜 선택
       </button>
-      {selectedDate && (
-        <div className="selected-date-display">{selectedDate}</div>
-      )}
+
+      <button onClick={() => updateBbaebakMutation.mutate()}>
+        약속 생성하기
+      </button>
+      <button onClick={() => makerSignedMutation.mutate()}>
+        약속 한 사람의 서명
+      </button>
     </div>
   );
 }
