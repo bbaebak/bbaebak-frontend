@@ -1,6 +1,6 @@
 import '@styles/index.css';
 import QueryProvider from 'app/providers/QueryProvider';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import KakaoScript from './KakaoScript';
 
 declare global {
@@ -21,7 +21,7 @@ export default function RootLayout({
           {/* <AboutService /> */}
           <div className="relative flex flex-col items-center w-full h-full max-w-[430px] bg-white">
             <KakaoScript />
-            {children}
+            <Suspense fallback={<p>Loading</p>}>{children}</Suspense>
           </div>
         </body>
       </QueryProvider>
