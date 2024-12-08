@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-import './styles/globals.css';
-=======
+// import './styles/globals.css';
 import '@styles/index.css';
 import QueryProvider from 'app/providers/QueryProvider';
 import { ReactNode } from 'react';
->>>>>>> dev
 import KakaoScript from './KakaoScript';
 
 declare global {
