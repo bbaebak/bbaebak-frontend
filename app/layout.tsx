@@ -1,7 +1,15 @@
 import '@styles/index.css';
 import QueryProvider from 'app/providers/QueryProvider';
 import { LazyMotion, domAnimation } from 'framer-motion';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
+import KakaoScript from './KakaoScript';
+
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
 
 export default function RootLayout({
   children,
@@ -11,9 +19,17 @@ export default function RootLayout({
   return (
     <html>
       <QueryProvider>
-        <LazyMotion features={domAnimation}>
-          <body>{children}</body>
-        </LazyMotion>
+        <body className="flex flex-row items-center justify-center w-screen h-screen bg-[#e0e2e6]">
+          {/* <AboutService /> */}
+          <div className="relative flex flex-col items-center w-full h-full max-w-[430px] bg-white">
+            <KakaoScript />
+            <Suspense fallback={<p>Loading</p>}>
+                 <LazyMotion features={domAnimation}>
+                   {children}
+                 </LazyMotion>
+             </Suspense>
+          </div>
+        </body>
       </QueryProvider>
     </html>
   );

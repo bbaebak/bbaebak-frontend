@@ -29,9 +29,10 @@ instance.interceptors.response.use(
 );
 
 const getRequest = async (apiUrl: string, config?: AxiosRequestConfig) => {
-  await instance.get(`${apiUrl}`, {
+  const response = await instance.get(`${apiUrl}`, {
     ...config,
   });
+  return response;
 };
 
 const postRequest = async (
@@ -39,9 +40,21 @@ const postRequest = async (
   data?: any,
   config?: AxiosRequestConfig
 ) => {
-  await instance.post(`${apiUrl}`, data, {
+  const response = await instance.post(`${apiUrl}`, data, {
     ...config,
   });
+  return response;
 };
 
-export { getRequest, postRequest };
+const patchRequest = async (
+  apiUrl: string,
+  data?: any,
+  config?: AxiosRequestConfig
+) => {
+  const response = await instance.patch(`${apiUrl}`, data, {
+    ...config,
+  });
+  return response;
+};
+
+export { getRequest, patchRequest, postRequest };
