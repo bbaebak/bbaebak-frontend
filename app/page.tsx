@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -36,24 +37,29 @@ export default function App() {
 
       {/* Blue Card */}
 
-      <div className="bg-blue-400 rounded-lg p-6 ml-6 mr-6 text-white mb-4 flex justify-between items-center">
-        <div>
-          <h2 className="self-stretch text-white text-[22px] font-bold leading-[29px]">
-            우리 언제
-            <br />밥 한번 먹자!
-          </h2>
-          <div className="text-sky-100  mt-4 font-custom-16 text-base font-medium">
-            언제쯤 누구와 만나는 지만 알려주면 <br />
-            바로 증명서를 만들 수 있어요!
+      <Link href="/bbaebakCreate">
+        {' '}
+        {/* Link로 감싸기 */}
+        <div className="bg-blue-400 rounded-lg p-6 ml-6 mr-6 text-white mb-4 flex justify-between items-center cursor-pointer">
+          <div>
+            <h2 className="self-stretch text-white text-[22px] font-bold leading-[29px]">
+              우리 언제
+              <br />밥 한번 먹자!
+            </h2>
+            <div className="text-sky-100 mt-4 font-custom-16 text-base font-medium">
+              언제쯤 누구와 만나는 지만 알려주면 <br />
+              바로 증명서를 만들 수 있어요!
+            </div>
           </div>
+          <div className="w-20 h-20 relative">
+            <div className="w-[69.75px] h-[69.53px] left-[5px] top-[5.49px] absolute"></div>
+          </div>
+          <Image src="/rice.svg" alt="밥약" width={80} height={80} />
         </div>
-        <div className="w-20 h-20 relative">
-          <div className="w-[69.75px] h-[69.53px] left-[5px] top-[5.49px] absolute"></div>
-        </div>
-        <Image src="/rice.svg" alt="밥약" width={80} height={80} />
-      </div>
+      </Link>
 
       {/* Light Blue Section */}
+
       <div
         className="h-[111px] ml-6 mr-6 p-6 mb-8 bg-sky-100 rounded-lg flex-col justify-start items-start gap-2 inline-flex"
         onClick={handleDetailedCreation}
