@@ -43,7 +43,7 @@ export default function RootLayout({
           <div
             className={`relative flex flex-col items-center w-full h-full bg-white  ${
               isWeb
-                ? 'max-w-[390px] max-h-[600px] ml-[100px] rounded-[40px] border-4 border-[#DCEFF9]'
+                ? 'max-w-[390px] max-h-[630px] ml-[100px] rounded-[40px] border-4 border-[#DCEFF9]'
                 : 'max-w-[430px] '
             }`}
           >
