@@ -4,12 +4,36 @@ import QueryProvider from 'app/providers/QueryProvider';
 import { ReactNode, Suspense } from 'react';
 import KakaoScript from './KakaoScript';
 import { Toaster } from 'sonner';
+import { Metadata } from 'next';
 
 declare global {
   interface Window {
     Kakao: any;
   }
 }
+
+export const metadata: Metadata = {
+  title: '빼박',
+  description: '약속은 빼도 박도 못하니까, 확실하게 만나보세요',
+  openGraph: {
+    title: '빼박 약속',
+    description: '약속은 빼도 박도 못하니까, 확실하게 만나보세요',
+    images: [
+      {
+        url: '/thumbnail_home.png',
+        width: 1200, // 실제 이미지 크기
+        height: 630, // 실제 이미지 크기
+        alt: '빼박 서비스 대표 이미지',
+      },
+    ],
+    type: 'website',
+    locale: 'ko_KR',
+    siteName: '빼박',
+  },
+  icons: {
+    icon: '/favicon.ico',
+  },
+};
 
 export default function RootLayout({
   children,
