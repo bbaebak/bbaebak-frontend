@@ -2,80 +2,67 @@
 
 import { useMutation } from '@tanstack/react-query';
 import { updateBbaebak } from 'app/api/apiList';
-import CustomCalendar from 'app/bbaebakCreate/components/calendar/Calendar';
+import SendCertificateBtn from 'app/bbaebakCreate/components/button/SendCertificateBtn';
 import DescriptionInput from 'app/bbaebakCreate/components/input/DescriptionInput';
 import MateInput from 'app/bbaebakCreate/components/input/mate/MateInput';
 import NameInput from 'app/bbaebakCreate/components/input/NameInput';
-import { ERROR_MATE_LENGTH, MATE_MAX_LENGTH } from 'app/constants/validation';
-import { validateMateNameExist } from 'app/utils/validation';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import DateInput from './components/input/DateInput';
+import { useBbaebakForm } from './hooks/useBbaebakForm';
 
 function BbaebakCreate() {
-  const [isClient, setIsClient] = useState(false);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [mateNames, setMateNames] = useState<string[]>([]);
-  const [mateCountError, setMateCountError] = useState('');
-  const [IscalendarOpen, setIsCalendarOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [id, setId] = useState<string | null>(null);
+  const {
+    nameValidation,
+    descriptionValidation,
+    mateNames,
+    mateCountError,
+    selectedDate,
+    setSelectedDate,
+    handleMateNameChange,
+    handleMateRemove,
+    validateAllFields,
+  } = useBbaebakForm();
 
+  const [isClient, setIsClient] = useState(false);
+  const [id, setId] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const queryId = searchParams.get('id');
 
   useEffect(() => {
+    dayjs.locale('ko');
     setIsClient(true);
     if (queryId) {
       setId(queryId);
     }
   }, [queryId]);
 
-  const handleMateNameChange = (mateName: string) => {
-    if (mateNames.length >= MATE_MAX_LENGTH) {
-      setMateCountError(ERROR_MATE_LENGTH);
-      return;
-    }
-
-    const mateError = validateMateNameExist(mateName, mateNames);
-    setMateCountError(mateError || '');
-    if (!mateError) {
-      setMateNames(prevNames => [...prevNames, mateName]);
-    }
-  };
-
-  const handleMateRemove = (mateName: string) => {
-    setMateNames(prevNames => prevNames.filter(name => name !== mateName));
-    setMateCountError('');
-  };
-
   const updateBbaebakMutation = useMutation({
     mutationFn: () =>
       updateBbaebak(
         {
-          maker: name,
+          maker: nameValidation.value,
           date: selectedDate!,
-          desc: description,
+          desc: descriptionValidation.value,
           mates: mateNames.map(name => ({ name })),
         },
         id as string
       ),
-    onSuccess: async data => {
-      console.log(data);
+    onSuccess: () => {
+      // 성공 시 처리
     },
     onError: error => {
-      console.log(error);
+      console.error('실패:', error);
     },
   });
 
-  const handleDateSelect = (value: any) => {
-    if (Array.isArray(value)) {
-      const [startDate] = value;
-      setSelectedDate(new Date(startDate));
-    } else {
-      setSelectedDate(new Date(value));
+  const handleSubmit = () => {
+    if (validateAllFields()) {
+      updateBbaebakMutation.mutate();
     }
   };
 
@@ -85,7 +72,7 @@ function BbaebakCreate() {
 
   return (
     <div className="min-h-screen w-full overflow-x-hidden px-5">
-      <div className="font-medium  text-[1.3rem] flex items-center gap-4 mt-[30px]">
+      <div className="font-medium text-[1.3rem] flex items-center gap-4 mt-[30px]">
         <Link href="/">
           <Image src="/backBtn.svg" alt="뒤로가기" width={8} height={8} />
         </Link>
@@ -93,35 +80,25 @@ function BbaebakCreate() {
       </div>
 
       <div className="bg-[#f6f5f2] flex flex-col gap-2 p-10 pt-5 mt-[20px] min-h-[424px] h-auto rounded-[2px]">
-        <span className="text-[#97D0EC] text-center mb-4">2024년 12월 7일</span>
+        <span className="text-[#97D0EC] text-center mb-4">
+          {dayjs().format('YYYY년 MM월 DD일')}
+        </span>
 
         <div className="flex flex-col gap-[25px]">
           <div className="flex gap-[5px]">
             <NameInput
-              value={name}
-              onChange={e => setName(e.target.value)}
-              error={''}
-              onBlur={() => {}}
+              value={nameValidation.value}
+              onChange={e => nameValidation.setValue(e.target.value)}
+              error={nameValidation.error}
+              onBlur={nameValidation.handleBlur}
             />
             은/는
           </div>
 
           <div className="flex gap-[5px]">
-            <button
-              className="toggle-button"
-              onClick={() => setIsCalendarOpen(prevState => !prevState)}
-            >
-              언제
-            </button>
-
-            {IscalendarOpen && (
-              <CustomCalendar
-                isVisible={IscalendarOpen}
-                onClose={() => setIsCalendarOpen(false)}
-                onDateSelect={handleDateSelect}
-              />
-            )}
+            <DateInput value={selectedDate} onChange={setSelectedDate} />에
           </div>
+
           <div className="flex gap-[5px]">
             <MateInput
               mateNames={mateNames}
@@ -134,10 +111,10 @@ function BbaebakCreate() {
 
           <div className="flex gap-[5px]">
             <DescriptionInput
-              value={description}
-              onChange={e => setDescription(e.target.value)}
-              error={''}
-              onBlur={() => {}}
+              value={descriptionValidation.value}
+              onChange={e => descriptionValidation.setValue(e.target.value)}
+              error={descriptionValidation.error}
+              onBlur={descriptionValidation.handleBlur}
             />
             를 약속합니다.
           </div>
@@ -145,12 +122,19 @@ function BbaebakCreate() {
       </div>
 
       <div className="mt-6 text-center">
-        <button
-          className="bg-[#c0c0c0] w-full h-14"
-          onClick={() => updateBbaebakMutation.mutate()}
-        >
-          상대방에게 증명서 보내기
-        </button>
+        <SendCertificateBtn
+          isEnabled={Boolean(
+            nameValidation.value &&
+              descriptionValidation.value &&
+              mateNames.length > 0 &&
+              selectedDate &&
+              !nameValidation.error &&
+              !descriptionValidation.error &&
+              !mateCountError
+          )}
+          onValidate={validateAllFields}
+          onClick={handleSubmit}
+        />
       </div>
     </div>
   );

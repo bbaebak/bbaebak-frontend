@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Sign from './components/Sign';
-import Stamp from './components/Stamp';
+// import Stamp from './components/Stamp';
 
 interface SignatureType {
   maker: string;
