@@ -43,7 +43,7 @@ function MateInput({ mateNames, onMateChange, onMateRemove, error }: Props) {
         onKeyDown={handleKeyDown}
         placeholder="👯‍♂️ 빼박 메이트 이름"
       />
-      <button onClick={handleAddMate}>추가</button>
+      <button onClick={handleAddMate}>+</button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <div>
         {mateNames.map((mate, index) => (
