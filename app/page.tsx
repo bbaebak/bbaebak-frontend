@@ -1,16 +1,53 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
 import { toast } from 'sonner';
+import { useMutation } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 
+const postBbaebak = async () => {
+  const response = await fetch(
+    'https://port-0-bbaebak-nestjs-m4eg5ca3338e8c5c.sel4.cloudtype.app/api/v1/bbaebak',
+    {
+      method: 'POST',
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error('약속 생성 실패');
+  }
+
+  return await response.json(); // API 응답 데이터를 반환
+};
 export default function App() {
+  const [id, setId] = useState<string>('');
+
   const [certificates] = useState([
     { id: 1, title: '증명서 이미지' },
     { id: 2, title: '증명서 이미지' },
     { id: 3, title: '증명서 이미지' },
   ]);
+
+  // React Query Mutation 정의
+  const mutation = useMutation({
+    mutationFn: () => postBbaebak(),
+    onSuccess: data => {
+      setId(data.data.id); // 약속 ID를 저장
+      toast.success('약속이 생성되었습니다!', { duration: 15000 });
+      console.log('요청성공', data.data.id);
+    },
+    onError: error => {
+      toast.error('약속 생성 중 오류가 발생했습니다.');
+      console.error(error);
+    },
+  });
+
+  // ID가 생성되면 약속 생성 페이지로 이동
+  useEffect(() => {
+    if (id) {
+      window.location.href = `/bbaebakCreate?id=${id}`; // ID를 URL에 쿼리 파라미터로 추가
+    }
+  }, [id]);
 
   const handleDetailedCreation = () => {
     toast(
@@ -25,38 +62,54 @@ export default function App() {
     <main className="flex flex-col min-h-[932px] w-[430px] bg-white px-4 py-6 ">
       {/* Main Title */}
       <div className="space-y-2 mb-8 ">
-        <h1 className="text-black text-[28px] ml-6 font-semibold font-['SUIT']">
+        <h1 className="text-black text-[28px] ml-6 font-semibold">
           말로만 만나자는 약속,
           <br />
           진심으로 만나고 싶다면?
         </h1>
-        <div className="text-zinc-700 text-[18px] ml-6 font-medium font-['SUIT']">
+        <div className="text-zinc-700 text-[18px] ml-6 font-medium ">
           빼박으로 가볍게 약속 증명서 만들자!
         </div>
       </div>
 
       {/* Blue Card */}
-
-      <Link href="/bbaebakCreate">
-        {' '}
-        {/* Link로 감싸기 */}
-        <div className="bg-blue-400 rounded-lg p-6 ml-6 mr-6 text-white mb-4 flex justify-between items-center cursor-pointer">
-          <div>
-            <h2 className="self-stretch text-white text-[22px] font-bold leading-[29px]">
-              우리 언제
-              <br />밥 한번 먹자!
-            </h2>
-            <div className="text-sky-100 mt-4 font-custom-16 text-base font-medium">
-              언제쯤 누구와 만나는 지만 알려주면 <br />
-              바로 증명서를 만들 수 있어요!
-            </div>
+      {/* 기존 코드 */}
+      {/* <div className="bg-blue-400 rounded-lg p-6 ml-6 mr-6 text-white mb-4 flex justify-between items-center cursor-pointer">
+        <div>
+          <h2 className="self-stretch text-white text-[22px] font-bold leading-[29px]">
+            우리 언제
+            <br />밥 한번 먹자!
+          </h2>
+          <div className="text-sky-100 mt-4 font-custom-16 text-base font-medium">
+            언제쯤 누구와 만나는 지만 알려주면 <br />
+            바로 증명서를 만들 수 있어요!
           </div>
-          <div className="w-20 h-20 relative">
-            <div className="w-[69.75px] h-[69.53px] left-[5px] top-[5.49px] absolute"></div>
-          </div>
-          <Image src="/rice.svg" alt="밥약" width={80} height={80} />
         </div>
-      </Link>
+        <div className="w-20 h-20 relative">
+          <div className="w-[69.75px] h-[69.53px] left-[5px] top-[5.49px] absolute"></div>
+        </div>
+        <Image src="/rice.svg" alt="밥약" width={80} height={80} />
+      </div> */}
+      {/* 수정 코드 */}
+      <button
+        className="bg-blue-400 rounded-lg p-6 ml-6 mr-6 text-white mb-4 flex justify-between items-center cursor-pointer"
+        onClick={() => mutation.mutate()}
+      >
+        <div>
+          <h2 className="self-stretch text-white text-[22px] font-bold leading-[29px]">
+            우리 언제
+            <br />밥 한번 먹자!
+          </h2>
+          <div className="text-sky-100 mt-4 font-custom-16 text-base font-medium">
+            언제쯤 누구와 만나는 지만 알려주면 <br />
+            바로 증명서를 만들 수 있어요!
+          </div>
+        </div>
+        <div className="w-20 h-20 relative">
+          <div className="w-[69.75px] h-[69.53px] left-[5px] top-[5.49px] absolute"></div>
+        </div>
+        <Image src="/rice.svg" alt="밥약" width={64} height={64} />
+      </button>
 
       {/* Light Blue Section */}
 
