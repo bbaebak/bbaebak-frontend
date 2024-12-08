@@ -1,19 +1,25 @@
+import '@styles/index.css';
+import QueryProvider from 'app/providers/QueryProvider';
+import { ReactNode } from 'react';
+import KakaoScript from './KakaoScript';
+
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
 import { Toaster } from 'sonner';
 import 'app/styles/globals.css';
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="ko">
-      <body>
-        <div className="flex justify-center min-h-screen bg-gray-100">
-          {children}
-        </div>
-        <Toaster position="top-center" />
-      </body>
+    <html>
+      <body>{children}</body>
     </html>
   );
 }

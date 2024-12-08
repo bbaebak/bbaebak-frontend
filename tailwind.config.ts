@@ -1,4 +1,6 @@
 import type { Config } from 'tailwindcss';
+import { colors } from './app/styles/theme/colors';
+import { typography } from './app/styles/theme/typography';
 
 export default {
   content: [
@@ -8,11 +10,14 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
+      colors,
+      fontFamily: {
+        sans: typography.sans,
       },
     },
   },
   plugins: [],
+  corePlugins: {
+    preflight: true,
+  },
 } satisfies Config;
