@@ -39,9 +39,21 @@ const postRequest = async (
   data?: any,
   config?: AxiosRequestConfig
 ) => {
-  await instance.post(`${apiUrl}`, data, {
+  const response = await instance.post(`${apiUrl}`, data, {
     ...config,
   });
+  return response;
 };
 
-export { getRequest, postRequest };
+const patchRequest = async (
+  apiUrl: string,
+  data?: any,
+  config?: AxiosRequestConfig
+) => {
+  const response = await instance.patch(`${apiUrl}`, data, {
+    ...config,
+  });
+  return response;
+};
+
+export { getRequest, patchRequest, postRequest };
