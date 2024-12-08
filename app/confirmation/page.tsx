@@ -11,7 +11,6 @@ import mockData from './mockData.json';
 import Title from './components/contents/Title';
 import Image from 'next/image';
 import polygon from '@public/polygon.svg';
-import SignAlarm from './components/button/Notice';
 import Notice from './components/button/Notice';
 import stamp1 from '@public/stamp/1.svg';
 import Stamp from './components/sign/components/Stamp';
