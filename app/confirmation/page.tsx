@@ -1,40 +1,20 @@
 'use client';
 
-import Contents from './components/contents/Contents';
-import Date from './components/contents/Date';
+import { getBbaebakDetail } from 'app/api/apiList';
+import ShareModal from 'app/common_components/ShareModal';
+import { useEffect, useState } from 'react';
 import NewButton from './components/button/NewButton';
+import Notice from './components/button/Notice';
 import RefreshButton from './components/button/RefreshButton';
 import SaveImageButton from './components/button/SaveImageButton';
 import ShareButton from './components/button/ShareButton';
-import Signature from './components/sign/Signature';
-import mockData from './mockData.json';
+import Contents from './components/contents/Contents';
+import Date from './components/contents/Date';
 import Title from './components/contents/Title';
-import Image from 'next/image';
-import polygon from '@public/polygon.svg';
-import SignAlarm from './components/button/Notice';
-import Notice from './components/button/Notice';
-import stamp1 from '@public/stamp/1.svg';
-import Stamp from './components/sign/components/Stamp';
-import { instance } from 'app/api';
-import { useParams } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
-import { getBbaebakDetail, postBbaebak } from 'app/api/apiList';
-import ShareModal from 'app/common_components/ShareModal';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import Signature from './components/sign/Signature';
 
-const URL = 'https://port-0-bbaebak-nestjs-m4eg5ca3338e8c5c.sel4.cloudtype.app';
 const ID = 'd512b9ac-4d30-4fee-ae0f-444533555cd5'; // 약속 아이디
 
-// async function getData() {
-//   const params = useParams();
-//   const res = await getBbaebakDetail(id);
-//   console.log('res 정보', res);
-//   return res;
-//   // const res = await fetch(`${URL}/bbaebak/${params.id}`);
-//   // const json = await res.json();
-//   // return json;
-// }
 interface fetchDataType {
   id: string;
   maker: string;
@@ -66,7 +46,6 @@ export default function Confirmation() {
     const handleFetch = async () => {
       try {
         const res = await getBbaebakDetail(ID);
-        console.log('데이터 정보다', res.data.data);
         const data = res.data.data;
         setData({
           ...data,
@@ -78,7 +57,8 @@ export default function Confirmation() {
     handleFetch();
   }, [ID]);
 
-  const { id, maker, date, desc, status, mates, createdAt, updatedAt } = data;
+  const { maker, status, mates, createdAt } = data;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="flex flex-col w-[430px] h-[932px] ">
@@ -92,6 +72,7 @@ export default function Confirmation() {
       >
         <Date value={createdAt} />
         <Contents {...data} />
+
         <Notice status={status} />
 
         <Signature maker={maker} mates={mates} status={status} />
@@ -100,8 +81,13 @@ export default function Confirmation() {
       <section>
         <div className="flex items-start gap-4 self-stretch mt-[24px]">
           <SaveImageButton />
-          <ShareButton />
-          {/* <ShareModal isVisible={true} /> */}
+          <ShareButton onClick={() => setIsModalOpen(true)} />
+          {isModalOpen && (
+            <ShareModal
+              isVisible={isModalOpen}
+              onClose={() => setIsModalOpen(!isModalOpen)}
+            />
+          )}
         </div>
         <NewButton />
       </section>
