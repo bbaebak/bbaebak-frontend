@@ -10,7 +10,7 @@ interface Props {
   onClose: () => void;
 }
 
-function Share Modal({ isVisible, onClose }: Props) {
+function ShareModal({ isVisible, onClose }: Props) {
   const [_, copy] = useCopyToClipboard();
   const modalRef = useRef<HTMLDivElement>(null);
 

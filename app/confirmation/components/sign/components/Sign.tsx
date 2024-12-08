@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Stamp from './Stamp';
 
 interface SignProps {
-  value: string;
+  name: string;
   id: string;
   isSigned: boolean;
   className: string;
@@ -12,7 +12,7 @@ interface SignProps {
 }
 
 export default function Sign({
-  value,
+  name,
   id,
   isSigned,
   className,
@@ -28,20 +28,36 @@ export default function Sign({
   };
   return (
     <div
-      className={`${onSign ? 'text-red-500' : 'text-black'} flex fle-col  gap-[24px] ${className}`}
+      className={`${onSign ? 'text-red-500' : 'text-black'} flex justify-center items-center text-[#454545] font-suit text-[18px] font-medium leading-normal ${className}`}
       onClick={handleClick}
     >
-      <p>{value}</p>
-      <div className="relative inline-block">
-        <p className="inline">인</p>
+      <div className="min-w-[60px] text-right">{name}</div>
+      <div className="relative w-[200px] flex items-center justify-center ">
+        <p className="absolute z-0">(인)</p>
         {onSign && (
           <Stamp
             className={
-              'absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+              'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10'
             }
           />
         )}
       </div>
     </div>
+    // <div
+    //   className={`${onSign ? 'text-red-500' : 'text-black'} flex fle-col  gap-[24px] text-gray-4 font-suit text-[18px] font-medium leading-normal ${className}`}
+    //   onClick={handleClick}
+    // >
+    //   <p>{value}</p>
+    //   <div className="relative inline-block">
+    //     <p className="absolute inline z-0">(인)</p>
+    //     {onSign && (
+    //       <Stamp
+    //         className={
+    //           'absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+    //         }
+    //       />
+    //     )}
+    //   </div>
+    // </div>
   );
 }

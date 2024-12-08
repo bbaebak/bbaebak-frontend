@@ -24,10 +24,10 @@ export default function Signature({ maker, mates, status }: SignatureType) {
   };
 
   return (
-    <section className="grid grid-cols-2 p-[12px_16px] justify-center items-end gap-[64px] self-stretch border-t border-b border-[#97D0EC]">
+    <section className="grid grid-cols-2 p-[12px_16px] justify-center items-end gap-[24px] self-stretch border-t border-b border-[#97D0EC] mt-[12px]">
       <Sign
         id={'user'}
-        value={maker}
+        name={maker}
         onClick={() => handleClick}
         isSigned={true}
         className="col-start-2 row-start-3 items-start"
@@ -51,7 +51,7 @@ export default function Signature({ maker, mates, status }: SignatureType) {
             <Sign
               key={item.id}
               id={item.id}
-              value={item.name}
+              name={item.name}
               onClick={() => handleClick}
               isSigned={item.isSigned}
               className={positionClass}

@@ -11,22 +11,16 @@ import ShareButton from './components/button/ShareButton';
 import Contents from './components/contents/Contents';
 import Date from './components/contents/Date';
 import Title from './components/contents/Title';
-<<<<<<< HEAD
 import Image from 'next/image';
 import polygon from '@public/polygon.svg';
-import Notice from './components/button/Notice';
 import stamp1 from '@public/stamp/1.svg';
 import Stamp from './components/sign/components/Stamp';
 import { instance } from 'app/api';
 import { useParams } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import { getBbaebakDetail, postBbaebak } from 'app/api/apiList';
-import ShareModal from 'app/common_components/ShareModal';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-=======
 import Signature from './components/sign/Signature';
->>>>>>> dev
+import mockData from './mockData.json';
 
 const ID = 'd512b9ac-4d30-4fee-ae0f-444533555cd5'; // 약속 아이디
 
@@ -72,58 +66,51 @@ export default function Confirmation() {
     handleFetch();
   }, [ID]);
 
-  const { maker, status, mates, createdAt } = data;
+  // const { maker, status, mates, createdAt } = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // test
   const testData = mockData;
   console.log('anranr', testData);
-  // const { id, maker, date, desc, status, mates, createdAt, updatedAt } =
-  //   testData[0];
+  const { id, maker, date, desc, status, mates, createdAt, updatedAt } =
+    testData[0];
 
   return (
-    <div className="flex flex-col w-[430px] h-[932px] ">
+    <div className="flex flex-col w-[430px] h-[932px] pd">
       <header className="inline-flex justify-center items-center py-0 px-[93.5px] relative mt-[34px]">
         <Title status={status} />
         <RefreshButton />
       </header>
-<<<<<<< HEAD
-      <section id="signDocument">
-        <div className='className=" flex p-[24px] flex-col justify-center items-center gap-[12px] self-stretch rounded-[2px] bg-[#F6F5F2] m-6 ml-5.5"'>
+      <div className=" m-[24px] mr-[22px]">
+        <section
+          id="signDocument"
+          className=" flex p-[24px] flex-col justify-center items-center gap-[12px] self-stretch rounded-[2px] bg-[#F6F5F2]"
+        >
           <Date value={createdAt} />
-          <Contents {...data} />
-=======
-      <section
-        id="signDocument"
-        className=" flex p-[24px] flex-col justify-center items-center gap-[12px] self-stretch rounded-[2px] bg-[#F6F5F2]"
-      >
-        <Date value={createdAt} />
-        <Contents {...data} />
-
-        <Notice status={status} />
->>>>>>> dev
+          {/* <Contents {...data} /> */}
 
           {/* 테스트용 */}
-          {/* <Contents {...testData[0]} />
-          <Notice status={status} /> */}
+          <Contents {...testData[0]} />
+          <div className="w-[260px] h-[37px]">
+            <Notice status={status} />
+          </div>
 
           <Signature maker={maker} mates={mates} status={status} />
-        </div>
-      </section>
-
-      <section>
-        <div className="flex items-start gap-4 self-stretch mt-[24px]">
-          <SaveImageButton />
-          <ShareButton onClick={() => setIsModalOpen(true)} />
-          {isModalOpen && (
-            <ShareModal
-              isVisible={isModalOpen}
-              onClose={() => setIsModalOpen(!isModalOpen)}
-            />
-          )}
-        </div>
-        <NewButton />
-      </section>
+        </section>
+        <section>
+          <div className="flex items-start gap-4 self-stretch mt-[24px]">
+            <SaveImageButton />
+            <ShareButton onClick={() => setIsModalOpen(true)} />
+            {isModalOpen && (
+              <ShareModal
+                isVisible={isModalOpen}
+                onClose={() => setIsModalOpen(!isModalOpen)}
+              />
+            )}
+          </div>
+          <NewButton />
+        </section>
+      </div>
     </div>
   );
 }
