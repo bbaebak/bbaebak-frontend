@@ -21,7 +21,7 @@ export default function SaveImageButton() {
   return (
     <button
       onClick={handleSaveImage}
-      className="flex p-4 justify-center items-center flex-1 rounded-lg bg-[#F8F8F8] text-[#5E5E5E] font-suit text-[17px] font-bold flex p-4 justify-center items-center flex-[1_0_0] hover:bg-blue-500 hover:text-white transition rounded-lg border border-blue-secondary bg-blue-light p-4"
+      className="flex p-4 justify-center items-center flex-1 rounded-lg bg-[#F8F8F8] text-[#5E5E5E] font-suit text-[17px] font-bold flex p-4 justify-center items-center flex-[1_0_0] hover:bg-[#DCEFF9] transition rounded-lg border hover:border-[#97D0EC]  p-4 text-[#000] font-suit text-[17px] font-bold leading-normal hover:text-[#000]"
     >
       갤러리에 저장하기
     </button>
