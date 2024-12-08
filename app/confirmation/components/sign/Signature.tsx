@@ -16,9 +16,9 @@ interface SignatureType {
 
 export default function Signature({ maker, mates, status }: SignatureType) {
   console.log('서명 데이터', maker, mates, status);
-  const [onSign, setOnSign] = useState([]);
+  const [onSign, setOnSign] = useState(false);
 
-  const handleClick = value => {
+  const handleClick = (value: string) => {
     console.log('클릭했다', value);
     setOnSign(true);
   };
@@ -28,8 +28,8 @@ export default function Signature({ maker, mates, status }: SignatureType) {
       <Sign
         id={'user'}
         value={maker}
-        onClick={handleClick}
-        onSign={true}
+        onClick={() => handleClick}
+        isSigned={true}
         className="col-start-2 row-start-3 items-start"
       />
       {Array.isArray(mates) &&
@@ -52,7 +52,7 @@ export default function Signature({ maker, mates, status }: SignatureType) {
               key={item.id}
               id={item.id}
               value={item.name}
-              onClick={handleClick}
+              onClick={() => handleClick}
               isSigned={item.isSigned}
               className={positionClass}
             />

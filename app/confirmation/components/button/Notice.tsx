@@ -10,7 +10,13 @@ export default function Notice({ status }: { status: string }) {
             이름을 눌러 도장을 찍어주세요!
           </div>
           <div>
-            <Image className="w-[20px] h-[20px] flex-shrink-0 " src={polygon} />
+            <Image
+              className="w-[20px] h-[20px] flex-shrink-0"
+              alt="도장찍기"
+              width={20}
+              height={20}
+              src={polygon}
+            />
           </div>
         </div>
       )}

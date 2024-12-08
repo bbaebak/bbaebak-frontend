@@ -8,7 +8,7 @@ interface SignProps {
   id: string;
   isSigned: boolean;
   className: string;
-  onClick: () => void;
+  onClick: (id: string) => void;
 }
 
 export default function Sign({
