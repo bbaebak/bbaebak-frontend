@@ -77,23 +77,31 @@ export default function Confirmation() {
     handleFetch();
   }, [ID]);
 
-  const { id, maker, date, desc, status, mates, createdAt, updatedAt } = data;
+  // const { id, maker, date, desc, status, mates, createdAt, updatedAt } = data;
+
+  // test
+  const testData = mockData;
+  console.log('anranr', testData);
+  const { id, maker, date, desc, status, mates, createdAt, updatedAt } =
+    testData[0];
 
   return (
     <div className="flex flex-col w-[430px] h-[932px] ">
-      <header className="inline-flex justify-center items-center py-0 px-[93.5px] relative mt-[34px] mb-[24px]">
+      <header className="inline-flex justify-center items-center py-0 px-[93.5px] relative mt-[34px]">
         <Title status={status} />
         <RefreshButton />
       </header>
-      <section
-        id="signDocument"
-        className=" flex p-[24px] flex-col justify-center items-center gap-[12px] self-stretch rounded-[2px] bg-[#F6F5F2]"
-      >
-        <Date value={createdAt} />
-        <Contents {...data} />
-        <Notice status={status} />
+      <section id="signDocument">
+        <div className='className=" flex p-[24px] flex-col justify-center items-center gap-[12px] self-stretch rounded-[2px] bg-[#F6F5F2] m-6 ml-5.5"'>
+          <Date value={createdAt} />
+          {/* <Contents {...data} /> */}
 
-        <Signature maker={maker} mates={mates} status={status} />
+          {/* 테스트용 */}
+          <Contents {...testData[0]} />
+          <Notice status={status} />
+
+          <Signature maker={maker} mates={mates} status={status} />
+        </div>
       </section>
 
       <section>
