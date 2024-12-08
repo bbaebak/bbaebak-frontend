@@ -1,6 +1,6 @@
 'use client';
-import Image from 'next/image';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
@@ -10,16 +10,22 @@ export default function CertificatePage() {
     { id: 2, title: '증명서 이미지' },
     { id: 3, title: '증명서' },
   ]);
+  const [isToastVisible, setIsToastVisible] = useState(false); // 상태로 관리
 
   const handleDetailedCreation = () => {
-    toast('상세 템플릿 선택하기', {
-      description:
-        '회사, 학교, 온오프라인 모임까지! 구체적인 템플릿을 준비했어요',
-      action: {
-        label: '확인',
-        onClick: () => console.log('Toast clicked'),
-      },
-    });
+    if (isToastVisible) return; // 이미 토스트가 보이고 있으면 실행 안 함
+
+    setIsToastVisible(true); // 토스트가 실행되었음을 설정
+
+    toast(
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <Image src="/warning.svg" alt="밥약" width={24} height={21} />
+        <span>아직 준비중이에요!</span>
+      </div>
+    );
+
+    // 일정 시간 후 토스트 상태 초기화
+    setTimeout(() => setIsToastVisible(false), 300); // 1초 후 초기화
   };
 
   return (
@@ -47,9 +53,6 @@ export default function CertificatePage() {
             바로 증명서를 만들 수 있어요!
           </p>
         </div>
-        {/* <div className="w-16 h-16 bg-red-400 rounded-full flex items-center justify-center">
-          <div className="w-12 h-12 bg-white rounded-full"></div>
-        </div> */}
         <Image src="/rice.svg" alt="밥약" width={80} height={80} />
       </div>
 
