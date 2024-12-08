@@ -1,4 +1,6 @@
 import {
+  ERROR_DATE_EMPTY,
+  ERROR_DATE_RANGE,
   ERROR_DESCRIPTION_EMPTY,
   ERROR_MATE_NAME_EXIST,
   ERROR_NAME_EMPTY,
@@ -38,4 +40,19 @@ const validateMateNameExist = (
   }
 };
 
-export { validateDescription, validateMateNameExist, validateName };
+const validateDate = (date: Date[] | null) => {
+  if (!date) {
+    return ERROR_DATE_EMPTY;
+  }
+  if (date.length !== 2 || !date[0] || !date[1]) {
+    return ERROR_DATE_RANGE;
+  }
+  return '';
+};
+
+export {
+  validateDate,
+  validateDescription,
+  validateMateNameExist,
+  validateName,
+};
