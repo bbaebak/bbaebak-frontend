@@ -16,7 +16,6 @@ export const updateBbaebak = async (params: UpdateValueTypes, id: string) => {
 // 메이커 서명
 export const postMakerSign = async (isSigned: boolean, id: string) => {
   const response = await patchRequest(`/api/v1/bbaebak/${id}/sign`, isSigned);
-  console.log(response);
   return response;
 };
 
@@ -27,7 +26,7 @@ export const postMateSign = async (
   mateId: string
 ) => {
   const response = await patchRequest(
-    `/bbaebak/:${id}/sign/:${mateId}`,
+    `/bbaebak/${id}/sign/:${mateId}`,
     isSigned
   );
   return response;
@@ -35,7 +34,7 @@ export const postMateSign = async (
 
 // 약속 삭제
 export const deleteBbaebak = async (id: string) => {
-  const response = await instance.delete(`/api/v1/bbaebak/:${id}`);
+  const response = await instance.delete(`/api/v1/bbaebak/${id}`);
   return response;
 };
 
@@ -47,6 +46,6 @@ export const getBbaebakList = async () => {
 
 // 약속 상세 조회
 export const getBbaebakDetail = async (id: string) => {
-  const response = await getRequest(`/bbaebak/:${id}`);
+  const response = await getRequest(`/bbaebak/${id}`);
   return response;
 };
