@@ -9,4 +9,7 @@ export const MATE_MAX_LENGTH = 6;
 export const ERROR_MATE_NAME_EXIST = '이미 등록된 빼박 메이트입니다.';
 export const ERROR_MATE_LENGTH = `빼박 메이트는 최대 ${MATE_MAX_LENGTH}명 지정 가능합니다.`;
 
+export const ERROR_DATE_EMPTY = '빼박 날짜를 선택해 주세요.';
+export const ERROR_DATE_RANGE = '시작 날짜와 종료 날짜를 모두 선택해 주세요.';
+
 export const ERROR_DESCRIPTION_EMPTY = '빼박 내용을 입력해 주세요.';
