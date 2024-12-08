@@ -18,6 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <QueryProvider>
         <body className=" ml-6 mr-6 flex flex-row items-center justify-center w-screen h-screen bg-[#e0e2e6] ">
           {/* <AboutService /> */}
