@@ -1,4 +1,6 @@
+import KakaoShareButton from '@components/KakaoShareButton';
 import { useCopyToClipboard } from '@hooks/useCopyToClipboard';
+import copyLinkIcon from '@public/copyLink.svg';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 
@@ -53,12 +55,7 @@ function ShareModal({ isVisible, onClose }: Props) {
 
         <div className="flex flex-row items-center justify-between w-[200px] mt-[30px]">
           <div className="flex flex-col items-center justify-center gap-4">
-            <Image
-              src="/KakaoShare.png"
-              alt="카카오톡"
-              width={40}
-              height={40}
-            />
+            <KakaoShareButton />
             <p>카카오톡</p>
           </div>
 
@@ -66,7 +63,10 @@ function ShareModal({ isVisible, onClose }: Props) {
             className="flex flex-col items-center justify-center gap-4 cursor-pointer"
             onClick={handleCopy}
           >
-            <Image src="/CopyLink.png" alt="링크 복사" width={40} height={40} />
+            <div className="w-[40px] h-[40px] flex items-center justify-center bg-white border border-[#e0e0e0] rounded-full">
+              <Image src={copyLinkIcon} alt="링크 복사" className="w-6 h-6" />
+            </div>
+
             <p>링크복사</p>
           </div>
         </div>

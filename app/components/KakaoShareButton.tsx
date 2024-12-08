@@ -23,14 +23,14 @@ export default function KakaoShareButton() {
   //       },
   //     });
   //   } else {
-  // 이거 왜 푸시가 안되니이ㅣ이이
+  // 이거 왜 푸시가 안되니이ㅣ이이 -> ㅋㅋㅋㅋ 퉁퉁 귀욥다 ;;
   //     console.log('Kakao SDK가 로드되지 않았습니다.');
   //   }
   // };
 
   return (
     <div
-      className="flex w-[63px] h-[60px] justify-center items-center rounded-full bg-[#FFEB00] cursor-pointer"
+      className="flex w-[40px] h-[40px] justify-center items-center rounded-full bg-[#FFEB00] cursor-pointer"
       onClick={handleShearToKakao}
     >
       <Image src={kakaoIcon} alt="카카오 공유하기" className="w-6 h-6" />
