@@ -1,3 +1,4 @@
+// import './styles/globals.css';
 import '@styles/index.css';
 import QueryProvider from 'app/providers/QueryProvider';
 import { ReactNode, Suspense } from 'react';

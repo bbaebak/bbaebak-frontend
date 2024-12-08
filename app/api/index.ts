@@ -29,9 +29,10 @@ instance.interceptors.response.use(
 );
 
 const getRequest = async (apiUrl: string, config?: AxiosRequestConfig) => {
-  await instance.get(`${apiUrl}`, {
+  const response = await instance.get(`${apiUrl}`, {
     ...config,
   });
+  return response;
 };
 
 const postRequest = async (

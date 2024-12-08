@@ -17,6 +17,7 @@
     ]
   },
   "dependencies": {
+    "html2canvas": "^1.4.1",
     "@tanstack/react-query": "^5.62.3",
     "axios": "^1.7.9",
     "moment": "^2.30.1",
