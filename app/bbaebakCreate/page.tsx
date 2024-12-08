@@ -28,7 +28,7 @@ function BbaebakCreate() {
   const [mateNames, setMateNames] = useState<string[]>([]);
   const [mateCountError, setMateCountError] = useState('');
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState<any>(null);
   const [id, setId] = useState<string | null>(null);
   const [showStamp, setShowStamp] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
