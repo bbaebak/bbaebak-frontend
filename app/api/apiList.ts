@@ -2,20 +2,21 @@ import { UpdateValueTypes } from 'app/types/create';
 import { getRequest, instance, patchRequest, postRequest } from '.';
 
 // 약속 생성
-export const postBbaebak = async (params: UpdateValueTypes) => {
-  const response = await postRequest('/api/v1/bbaebak', params);
+export const postBbaebak = async () => {
+  const response = await postRequest('/api/v1/bbaebak');
   return response;
 };
 
 // 약속 정보 업데이트
 export const updateBbaebak = async (params: UpdateValueTypes, id: string) => {
-  const response = await patchRequest(`/bbaebak/:${id}`, params);
+  const response = await patchRequest(`/api/v1/bbaebak/${id}`, params);
   return response;
 };
 
 // 메이커 서명
 export const postMakerSign = async (isSigned: boolean, id: string) => {
-  const response = await patchRequest(`/bbaebak/:${id}/sign`, isSigned);
+  const response = await patchRequest(`/api/v1/bbaebak/${id}/sign`, isSigned);
+  console.log(response);
   return response;
 };
 
@@ -34,7 +35,7 @@ export const postMateSign = async (
 
 // 약속 삭제
 export const deleteBbaebak = async (id: string) => {
-  const response = await instance.delete(`/bbaebak/:${id}`);
+  const response = await instance.delete(`/api/v1/bbaebak/:${id}`);
   return response;
 };
 
