@@ -40,6 +40,7 @@ interface fetchDataType {
 }
 
 export default function Confirmation() {
+  const params = useParams();
   const [data, setData] = useState<fetchDataType>({
     id: '',
     maker: '',
@@ -54,7 +55,7 @@ export default function Confirmation() {
   useEffect(() => {
     const handleFetch = async () => {
       try {
-        const res = await getBbaebakDetail(ID);
+        const res = await getBbaebakDetail(ID); // 아이디 생성시 params.id로 변경
         const data = res.data.data;
         setData({
           ...data,
@@ -66,17 +67,18 @@ export default function Confirmation() {
     handleFetch();
   }, [ID]);
 
-  // const { maker, status, mates, createdAt } = data;
+  const { maker, status, mates, createdAt } = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // test
-  const testData = mockData;
-  console.log('anranr', testData);
-  const { id, maker, date, desc, status, mates, createdAt, updatedAt } =
-    testData[0];
+  // const testData = mockData;
+  // console.log('anranr', testData);
+  // const { id, maker, date, desc, status, mates, createdAt, updatedAt } =
+  //   testData[0];
 
   return (
-    <div className="flex flex-col w-[430px] h-[932px] pd">
+    // <div className="flex flex-col w-[430px] h-[932px] pd">
+    <div className="flex flex-col w-full h-full overflow-y-auto pd">
       <header className="inline-flex justify-center items-center py-0 px-[93.5px] relative mt-[34px]">
         <Title status={status} />
         <RefreshButton />
@@ -90,7 +92,7 @@ export default function Confirmation() {
           {/* <Contents {...data} /> */}
 
           {/* 테스트용 */}
-          <Contents {...testData[0]} />
+          {/* <Contents {...testData[0]} /> */}
           <div className="w-[260px] h-[37px]">
             <Notice status={status} />
           </div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Sign from './components/Sign';
+import { postBbaebak, postMateSign } from 'app/api/apiList';
 // import Stamp from './components/Stamp';
 
 interface SignatureType {
@@ -21,6 +22,17 @@ export default function Signature({ maker, mates, status }: SignatureType) {
   const handleClick = (value: string) => {
     console.log('클릭했다', value);
     setOnSign(true);
+    // 메이트 서명
+    // const handleFetch = async () => {
+    //   try {
+    //     const res = await postMateSign();
+    //     // const res = await postBbaebak();
+    //     const data = res.data.data.id;
+    //   } catch (error) {
+    //     console.log('에러', error);
+    //   }
+    // };
+    // handleFetch();
   };
 
   return (
