@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-export default function Stamp({ className }) {
+export default function Stamp({ className }: { className: string }) {
   const randomNum = Math.floor(Math.random() * 13) + 1;
   return (
     <div className={`${className} w-[58px] h-[65.296px] shrink-0 `}>

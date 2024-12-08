@@ -1,4 +1,4 @@
-export default function List({ value, text }) {
+export default function List({ value, text }: { value: string; text: string }) {
   return (
     <div className="flex flex-wrap items-center gap-[4px] self-stretch">
       <p className="text-[#000] font-suit text-[22px] font-bold leading-[29px]">

@@ -61,19 +61,6 @@ export default function Confirmation() {
     createdAt: '',
     updatedAt: '',
   });
-  // const data = mockData;
-  // console.log('목 데이터', data);
-  // const currentData = data.filter(item => String(item.id) === String('1'));
-
-  // if (currentData.length === 0) {
-  //   console.error('데이터가 없습니다.');
-  //   return <div>데이터가 없습니다.</div>;
-  // }
-
-  // const { maker, date, desc, status, mates, createdAt, updatedAt } =
-  //   currentData[0];
-
-  // console.log('약속한 사람들', mates);
 
   useEffect(() => {
     const handleFetch = async () => {
@@ -84,61 +71,40 @@ export default function Confirmation() {
         setData({
           ...data,
         });
-        // return res;
       } catch (error) {
         console.error('데이터 조회 에러', error);
       }
     };
-
     handleFetch();
-    // console.log('데이터연동동', res);
-
-    // setGetData();
   }, [ID]);
 
-  console.log('셋데이터', data);
   const { id, maker, date, desc, status, mates, createdAt, updatedAt } = data;
 
-  // 약속생성
-  // bbaebakCreate
-
   return (
-    <div className="flex flex-col w-[430px] h-[817px] ">
-      <section className="signDocument">
-        <section id="signDocument" className="">
-          <div className="flex items-center pt-[34px] pb-[24px]">
-            <Title status={status} />
-          </div>
-          <section className=" flex p-[24px] flex-col justify-center items-center gap-[12px] self-stretch rounded-[2px] bg-[#F6F5F2]">
-            <Date value={createdAt} />
-            <Contents {...data} />
-            <Notice status={status} />
+    <div className="flex flex-col w-[430px] h-[932px] ">
+      <header className="inline-flex justify-center items-center py-0 px-[93.5px] relative mt-[34px] mb-[24px]">
+        <Title status={status} />
+        <RefreshButton />
+      </header>
+      <section
+        id="signDocument"
+        className=" flex p-[24px] flex-col justify-center items-center gap-[12px] self-stretch rounded-[2px] bg-[#F6F5F2]"
+      >
+        <Date value={createdAt} />
+        <Contents {...data} />
+        <Notice status={status} />
 
-            <Signature maker={maker} mates={mates} status={status} />
-          </section>
-        </section>
+        <Signature maker={maker} mates={mates} status={status} />
       </section>
 
       <section>
         <div className="flex items-start gap-4 self-stretch mt-[24px]">
           <SaveImageButton />
-          {/* <ShareModal></ShareModal> */}
           <ShareButton />
+          {/* <ShareModal isVisible={true} /> */}
         </div>
         <NewButton />
       </section>
-      <RefreshButton />
-
-      {/* {status !== '완료' && (
-          <section className="flex w-[260px] h-[50px]">
-            <div className="inline-flex p-[8px_24px] justify-center items-center rounded-[8px] bg-[#E0DC51]">
-              <p className="text-[#000] font-suit text-[17px] font-bold leading-normal">
-                이름을 눌러 도장을 찍어주세요
-              </p>
-            </div>
-            <Image className="w-[20px] h-[20px] flex-shrink-0 " src={polygon} />
-          </section>
-        )} */}
     </div>
   );
 }

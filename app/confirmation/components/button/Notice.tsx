@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import polygon from '@public/polygon.svg';
 
-export default function Notice({ status }) {
+export default function Notice({ status }: { status: string }) {
   return (
     <div className="flex ">
       {status !== 'completed' && (

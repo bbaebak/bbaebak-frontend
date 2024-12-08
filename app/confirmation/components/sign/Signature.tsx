@@ -4,7 +4,17 @@ import { useEffect, useState } from 'react';
 import Sign from './components/Sign';
 import Stamp from './components/Stamp';
 
-export default function Signature({ maker, mates, status }) {
+interface SignatureType {
+  maker: string;
+  mates: {
+    id: string;
+    name: string;
+    isSigned: boolean;
+  }[];
+  status: string;
+}
+
+export default function Signature({ maker, mates, status }: SignatureType) {
   console.log('서명 데이터', maker, mates, status);
   const [onSign, setOnSign] = useState([]);
 
