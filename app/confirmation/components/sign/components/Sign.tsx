@@ -3,7 +3,21 @@
 import { useState } from 'react';
 import Stamp from './Stamp';
 
-export default function Sign({ value, id, isSigned, className, onClick }) {
+interface SignProps {
+  value: string;
+  id: string;
+  isSigned: boolean;
+  className: string;
+  onClick: () => void;
+}
+
+export default function Sign({
+  value,
+  id,
+  isSigned,
+  className,
+  onClick,
+}: SignProps) {
   const [onSign, setOnSign] = useState(isSigned);
   const handleClick = () => {
     if (onSign) {

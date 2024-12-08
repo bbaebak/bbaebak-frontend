@@ -15,7 +15,7 @@ export interface ContentsType {
   updatedAt: Date;
 }
 
-export default async function Contents({
+export default function Contents({
   maker,
   date,
   desc,

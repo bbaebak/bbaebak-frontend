@@ -40,12 +40,12 @@ export const deleteBbaebak = async (id: string) => {
 
 // 약속 리스트 조회
 export const getBbaebakList = async () => {
-  const response = await getRequest('/bbaebak');
+  const response = await getRequest('/api/v1/bbaebak');
   return response;
 };
 
 // 약속 상세 조회
 export const getBbaebakDetail = async (id: string) => {
-  const response = await getRequest(`/bbaebak/${id}`);
+  const response = await getRequest(`/api/v1/bbaebak/${id}`);
   return response;
 };
