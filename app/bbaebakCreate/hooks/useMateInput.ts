@@ -7,7 +7,9 @@ interface Props {
 export const useMateInput = ({ onMateChange }: Props) => {
   const [mateName, setMateName] = useState('');
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setMateName(e.target.value);
   };
 
