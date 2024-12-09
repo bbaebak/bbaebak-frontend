@@ -58,7 +58,7 @@ function CustomCalendar({ isVisible, onClose, onDateSelect }: CalendarProps) {
   return (
     <m.div
       ref={calendarRef}
-      className="absolute bottom-0 left-0 right-0 max-w-full bg-white shadow-xl rounded-t-lg"
+      className="absolute bottom-0 left-0 right-0 max-w-full bg-white shadow-xl rounded-tl-[30px] rounded-tr-[30px] rounded-b-[40px] border-b-4 border-[#DCEFF9]"
       style={{ zIndex: 9999 }}
       initial={{ y: '100%' }}
       animate={{ y: isVisible ? '0' : '100%' }}

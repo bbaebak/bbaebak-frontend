@@ -46,7 +46,7 @@ function Input({
               onBlur={e => onBlur?.(e.target.value)}
               placeholder={placeholder}
               readOnly={readonly}
-              className={`w-[200px] h-[70px] bg-transparent border-none outline-none text-base ${className} ${readonly ? 'cursor-pointer' : ''} resize-none overscroll-hidden`}
+              className={`pr-2 pl-2 w-[200px] h-[70px] bg-transparent border-none outline-none text-base ${className} ${readonly ? 'cursor-pointer' : ''} resize-none overscroll-hidden`}
               rows={1}
             />
           ) : (
@@ -58,7 +58,7 @@ function Input({
               onKeyDown={onKeyDown}
               placeholder={placeholder}
               readOnly={readonly}
-              className={`w-full bg-transparent border-none outline-none text-base ${className} ${readonly ? 'cursor-pointer' : ''}`}
+              className={`pr-2 pl-2 w-full bg-transparent border-none outline-none text-base ${className} ${readonly ? 'cursor-pointer' : ''}`}
             />
           )}
           {suffix && <div className="flex-shrink-0">{suffix}</div>}
