@@ -118,7 +118,7 @@ function BbaebakCreate() {
         가벼운 빼박 증명서 만들기
       </div>
 
-      <div className="bg-[#f6f5f2] flex flex-col gap-2 p-10 pt-5 mt-[20px] h-auto rounded-[2px]">
+      <div className="bg-[#f6f5f2] flex flex-col gap-2 p-5 pt-5 mt-[20px] h-auto rounded-[2px]">
         <span className="text-[#97D0EC] text-center mb-4">
           {dayjs().format('YYYY년 MM월 DD일')}
         </span>
