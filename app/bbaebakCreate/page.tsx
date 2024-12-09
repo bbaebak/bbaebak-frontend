@@ -6,6 +6,8 @@ import SendCertificateBtn from 'app/bbaebakCreate/components/button/SendCertific
 import DescriptionInput from 'app/bbaebakCreate/components/input/DescriptionInput';
 import MateInput from 'app/bbaebakCreate/components/input/mate/MateInput';
 import NameInput from 'app/bbaebakCreate/components/input/NameInput';
+import ShareModal from 'app/common_components/ShareModal';
+import StampModal from 'app/common_components/StampModal';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import Image from 'next/image';
@@ -13,29 +15,10 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import DateInput from './components/input/DateInput';
-import { useBbaebakForm } from './hooks/useBbaebakForm';
-import {
-  ERROR_DESCRIPTION_EMPTY,
-  ERROR_NAME_EMPTY,
-} from 'app/constants/validation';
-import moment from 'moment';
-import ShareModal from 'app/common_components/ShareModal';
 import Sign from './components/stamp/Sign';
-import StampModal from 'app/common_components/StampModal';
+import { useBbaebakForm } from './hooks/useBbaebakForm';
 
 function BbaebakCreate() {
-  const {
-    nameValidation,
-    descriptionValidation,
-    mateNames,
-    mateCountError,
-    selectedDate,
-    setSelectedDate,
-    handleMateNameChange,
-    handleMateRemove,
-    validateAllFields,
-  } = useBbaebakForm();
-
   const [isClient, setIsClient] = useState(false);
   const [id, setId] = useState<string | null>(null);
   const [showStamp, setShowStamp] = useState(false);
@@ -46,6 +29,20 @@ function BbaebakCreate() {
 
   const searchParams = useSearchParams();
   const queryId = searchParams.get('id');
+
+  const {
+    nameValidation,
+    descriptionValidation,
+    mateNames,
+    mateCountError,
+    selectedDate,
+    setSelectedDate,
+    handleMateNameChange,
+    handleMateRemove,
+    validateAllFields,
+    isStampSigned,
+    setIsStampSigned,
+  } = useBbaebakForm();
 
   useEffect(() => {
     dayjs.locale('ko');
@@ -74,14 +71,6 @@ function BbaebakCreate() {
     },
   });
 
-  const handleSubmit = () => {
-    setIsShareModalOpen(true);
-    if (validateAllFields()) {
-      updateBbaebakMutation.mutate();
-      setIsShareModalOpen(true);
-    }
-  };
-
   const makerSignedBbaebakMutation = useMutation({
     mutationFn: () =>
       postMakerSign({
@@ -93,6 +82,7 @@ function BbaebakCreate() {
         setShowStamp(true);
         setIsModalOpen(false);
         setIsStampModalShown(true);
+        setIsStampSigned(true);
         setShareBtn(true);
       }
     },
@@ -100,6 +90,14 @@ function BbaebakCreate() {
       console.error(error);
     },
   });
+
+  const handleSubmit = () => {
+    const validationError = validateAllFields();
+    if (!validationError && isStampSigned) {
+      updateBbaebakMutation.mutate();
+      setIsShareModalOpen(true);
+    }
+  };
 
   const handleButtonClick = () => {
     if (
@@ -127,49 +125,55 @@ function BbaebakCreate() {
         </Link>
         가벼운 빼박 증명서 만들기
       </div>
-
       <div className="bg-[#f6f5f2] flex flex-col gap-2 p-5 pt-5 mt-[20px] h-auto rounded-[2px]">
         <span className="text-[#97D0EC] text-center mb-4">
           {dayjs().format('YYYY년 MM월 DD일')}
         </span>
 
         <div className="flex flex-col gap-[25px]">
-          <div className="flex gap-[5px]">
-            <NameInput
-              value={nameValidation.value}
-              onChange={e => nameValidation.setValue(e.target.value)}
-              error={nameValidation.error}
-              onBlur={nameValidation.handleBlur}
-            />
-            은/는
+          <div className="flex flex-col gap-[25px]">
+            <div className="flex gap-[5px]">
+              <NameInput
+                value={nameValidation.value}
+                onChange={e => nameValidation.setValue(e.target.value)}
+                error={nameValidation.error}
+                onBlur={nameValidation.handleBlur}
+              />
+              <span className="text-gray-4 font-suit text-[15px] font-normal leading-[29px]">
+                은/는
+              </span>
+            </div>
+
+            <div className="flex gap-[5px]">
+              <DateInput value={selectedDate} onChange={setSelectedDate} />
+            </div>
+
+            <div className="flex gap-[5px]">
+              <MateInput
+                mateNames={mateNames}
+                onMateChange={handleMateNameChange}
+                error={mateCountError}
+                onMateRemove={handleMateRemove}
+              />
+              <span className="text-gray-4 font-suit text-[15px] font-normal leading-[29px]">
+                과 함께
+              </span>
+            </div>
+
+            <div className="flex gap-[5px]">
+              <DescriptionInput
+                value={descriptionValidation.value}
+                onChange={e => descriptionValidation.setValue(e.target.value)}
+                error={descriptionValidation.error}
+                onBlur={descriptionValidation.handleBlur}
+              />
+              <span className="text-gray-4 font-suit text-[15px] font-normal leading-[29px]">
+                를 약속합니다.
+              </span>
+            </div>
           </div>
 
-          <div className="flex gap-[5px]">
-            <DateInput value={selectedDate} onChange={setSelectedDate} />에
-          </div>
-
-          <div className="flex gap-[5px]">
-            <MateInput
-              mateNames={mateNames}
-              onMateChange={handleMateNameChange}
-              error={mateCountError}
-              onMateRemove={handleMateRemove}
-            />
-            과 함께
-          </div>
-
-          <div className="flex gap-[5px]">
-            <DescriptionInput
-              value={descriptionValidation.value}
-              onChange={e => descriptionValidation.setValue(e.target.value)}
-              error={descriptionValidation.error}
-              onBlur={descriptionValidation.handleBlur}
-            />
-            를 약속합니다.
-          </div>
-        </div>
-
-        <div className="p-[10px_16px] self-stretch border-t border-b border-[#97D0EC] mt-auto mt-12">
+          <div className="p-[10px_16px] self-stretch border-t border-b border-[#97D0EC] mt-auto mt-12"></div>
           <Sign
             maker={nameValidation.value}
             isSigned={showStamp}
@@ -177,24 +181,21 @@ function BbaebakCreate() {
             mates={mateNames}
           />
         </div>
-      </div>
-
+      </div>{' '}
       {isShareModalOpen && (
         <ShareModal
+          id={id as string}
           isVisible={isShareModalOpen}
           onClose={() => setIsShareModalOpen(false)}
           onValidate={validateAllFields}
-          id={queryId!}
         />
       )}
-
       <div className="mt-6 text-center">
         <SendCertificateBtn
           isEnabled={shareBtn}
           onClick={() => handleSubmit()}
         />
       </div>
-
       <StampModal
         isVisible={isModalOpen}
         onClose={() => setIsModalOpen(false)}
