@@ -38,7 +38,7 @@ export default {
     },
   },
   plugins: [
-    function ({ addComponents }) {
+    function ({ addComponents }: any) {
       addComponents({
         '.no-scrollbar': {
           '-webkit-scrollbar': 'none',
