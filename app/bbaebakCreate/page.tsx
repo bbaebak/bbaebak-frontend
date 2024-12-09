@@ -173,13 +173,14 @@ function BbaebakCreate() {
             </div>
           </div>
 
-          <div className="p-[10px_16px] self-stretch border-t border-b border-[#97D0EC] mt-auto mt-12"></div>
-          <Sign
-            maker={nameValidation.value}
-            isSigned={showStamp}
-            onClick={handleButtonClick}
-            mates={mateNames}
-          />
+          <div className="p-[10px_16px] self-stretch border-t border-b border-[#97D0EC] mt-auto mt-12">
+            <Sign
+              maker={nameValidation.value}
+              isSigned={showStamp}
+              onClick={handleButtonClick}
+              mates={mateNames}
+            />
+          </div>
         </div>
       </div>{' '}
       {isShareModalOpen && (

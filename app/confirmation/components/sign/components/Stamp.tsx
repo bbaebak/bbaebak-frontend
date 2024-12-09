@@ -1,26 +1,17 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-
-function randomFn() {
-  return Math.floor(Math.random() * 13) + 1;
-}
+import { useMemo } from 'react';
 
 export default function Stamp({ className }: { className: string }) {
-  const [number, setNumber] = useState<number>(1);
-
-  useEffect(() => {
-    setNumber(randomFn());
-  }, []);
+  const randomNum = useMemo(() => Math.floor(Math.random() * 13) + 1, []);
 
   return (
-    <>
+    <div className={`${className} w-[58px] h-[65.296px] shrink-0`}>
       <Image
-        src={`/stamp/${number}.svg`}
+        src={`/stamp/${randomNum}.svg`}
         alt="서명 스탬프"
-        width={200}
-        height={200}
-        className={`${className} w-[58px] h-[65.296px] shrink-0 `}
+        width={100}
+        height={100}
       />
-    </>
+    </div>
   );
 }
