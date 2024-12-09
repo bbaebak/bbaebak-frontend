@@ -16,8 +16,15 @@ function MateInput({ mateNames, onMateChange, onMateRemove, error }: Props) {
     onMateChange,
   });
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === 'Enter' && !e.nativeEvent.isComposing) {
+      e.preventDefault();
+      handleAddMate();
+    }
+  };
+
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 w-[200px]">
       <div className="flex gap-2">
         <Input
           value={mateName}
@@ -25,6 +32,7 @@ function MateInput({ mateNames, onMateChange, onMateRemove, error }: Props) {
           error={error}
           placeholder="상대방의 이름"
           containerClassName="w-[200px]"
+          onKeyDown={handleKeyDown}
           suffix={
             <button
               onClick={handleAddMate}
@@ -36,17 +44,19 @@ function MateInput({ mateNames, onMateChange, onMateRemove, error }: Props) {
         />
       </div>
 
-      {mateNames.length > 0 && (
-        <div className="flex flex-wrap gap-2">
-          {mateNames.map((mate, index) => (
-            <MateTag
-              key={index}
-              name={mate}
-              onRemove={() => onMateRemove(mate)}
-            />
-          ))}
-        </div>
-      )}
+      <div className="flex flex-wrap gap-2 w-[200px]">
+        {mateNames.length > 0 && (
+          <div className="flex flex-wrap gap-2 w-full">
+            {mateNames.map((mate, index) => (
+              <MateTag
+                key={index}
+                name={mate}
+                onRemove={() => onMateRemove(mate)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

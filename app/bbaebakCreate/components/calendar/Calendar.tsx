@@ -66,7 +66,7 @@ function CustomCalendar({ isVisible, onClose, onDateSelect }: CalendarProps) {
           약속 날짜 또는 범위를 선택해주세요
         </p>
       </div>
-      <div className="p-4">
+      <div className="p-4 z-50">
         <Calendar
           value={date}
           onChange={handleDateChange}

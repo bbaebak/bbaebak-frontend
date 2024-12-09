@@ -1,43 +1,36 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CustomCalendar from '../calendar/Calendar';
 import Input from './Input';
+import moment from 'moment';
 
 interface Props {
-  value: Date | null;
-  onChange: (date: Date) => void;
+  value: any;
+  onChange: any;
   error?: string;
 }
 
 function DateInput({ value, onChange, error }: Props) {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-
-  const handleDateSelect = (selectedDate: any) => {
-    if (Array.isArray(selectedDate)) {
-      onChange(new Date(selectedDate[0]));
+  const handleDateSelect = (date: any) => {
+    if (Array.isArray(date)) {
+      onChange(
+        `${moment(date[0]).format('YYYY년 MM월 DD일부터')} ${moment(date[1]).format('YYYY년 MM월 DD일 중')}`
+      );
     } else {
-      onChange(new Date(selectedDate));
+      onChange(moment(date).format('YYYY년 MM월 DD일'));
     }
-    setIsCalendarOpen(false);
   };
 
-  const formattedDate = value
-    ? new Intl.DateTimeFormat('ko-KR', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      }).format(value)
-    : '';
-
   return (
-    <div className="relative">
+    <div>
       <Input
-        value={formattedDate}
+        value={value || ''}
         onChange={() => {}}
         error={error}
         placeholder="언제"
         onClick={() => setIsCalendarOpen(true)}
-        containerClassName="w-[120px]"
+        containerClassName="w-[200px]"
         suffix={<span className="text-gray-400"></span>}
         readonly
       />

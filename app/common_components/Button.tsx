@@ -28,6 +28,7 @@ const Button = forwardRef(function Button(
         ${status === 'Disabled' ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-600 text-white cursor-pointer'}
         h-[53px] rounded-md text-lg font-bold
       `}
+      disabled={status === 'Disabled'}
       {...rest}
     >
       {children}
