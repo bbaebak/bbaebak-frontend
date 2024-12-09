@@ -1,7 +1,6 @@
 import KakaoShareButton from '@components/KakaoShareButton';
 import { useCopyToClipboard } from '@hooks/useCopyToClipboard';
 import copyLinkIcon from '@public/copyLink.svg';
-import { m } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 
@@ -42,16 +41,14 @@ function ShareModal({ isVisible, onClose }: Props) {
   }, [onClose]);
 
   return (
-    <m.div
+    <div
       ref={modalRef}
-      className="absolute bottom-0 left-0 right-0 max-w-full bg-white shadow-xl rounded-tl-[30px] rounded-tr-[30px]"
+      className={`transition-transform duration-300 transform ${
+        isVisible ? 'translate-y-0' : 'translate-y-full'
+      } absolute bottom-0 left-0 right-0 max-w-full bg-white shadow-xl rounded-tl-[30px] rounded-tr-[30px]`}
       style={{
         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
       }}
-      initial={{ y: '100%' }}
-      animate={{ y: isVisible ? '0' : '100%' }}
-      exit={{ y: '100%' }}
-      transition={{ duration: 0.3 }}
     >
       <div className="w-full max-w-[430px] mx-auto h-[180px] flex flex-col items-center justify-center">
         <span className="text-lg font-medium">공유하기</span>
@@ -74,7 +71,7 @@ function ShareModal({ isVisible, onClose }: Props) {
           </div>
         </div>
       </div>
-    </m.div>
+    </div>
   );
 }
 

@@ -1,5 +1,4 @@
 import { ChangeEvent } from 'react';
-import Input from './Input';
 
 interface Props {
   value: string;
@@ -10,14 +9,16 @@ interface Props {
 
 function NameInput({ value, onBlur, onChange, error }: Props) {
   return (
-    <Input
-      value={value}
-      onChange={onChange}
-      onBlur={onBlur}
-      error={error}
-      placeholder="당신의 이름"
-      containerClassName="w-[120px]"
-    />
+    <div>
+      <input
+        type="text"
+        value={value}
+        onChange={onChange}
+        onBlur={e => onBlur(e.target.value)}
+        placeholder="이름"
+      />
+      {error && <p>{error}</p>}
+    </div>
   );
 }
 

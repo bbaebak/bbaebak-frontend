@@ -1,18 +1,16 @@
 import { useState } from 'react';
 
-interface ValidationHookReturn {
-  value: string;
-  setValue: (value: string) => void;
-  error: string;
-  handleBlur: () => void;
-}
-
-export const useValidation = (initialValue: string): ValidationHookReturn => {
-  const [value, setValue] = useState(initialValue);
+export const useValidation = (initialState: string) => {
+  const [value, setValue] = useState(initialState);
   const [error, setError] = useState('');
 
-  const handleBlur = () => {
-    // 여기서 validation 로직 처리
+  const validate = (validationFunc: (value: string) => string) => {
+    const errorMessage = validationFunc(value);
+    setError(errorMessage);
+  };
+
+  const handleBlur = (validationFunc: (value: string) => string) => {
+    validate(validationFunc);
   };
 
   return { value, setValue, error, handleBlur };

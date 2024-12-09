@@ -14,13 +14,7 @@ export const updateBbaebak = async (params: UpdateValueTypes, id: string) => {
 };
 
 // 메이커 서명
-export const postMakerSign = async ({
-  isSigned,
-  id,
-}: {
-  isSigned: boolean;
-  id: string;
-}) => {
+export const postMakerSign = async (isSigned: boolean, id: string) => {
   const response = await patchRequest(`/api/v1/bbaebak/${id}/sign`, isSigned);
   return response;
 };

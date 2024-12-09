@@ -1,5 +1,4 @@
 import { ChangeEvent } from 'react';
-import Input from './Input';
 
 interface Props {
   value: string;
@@ -10,14 +9,16 @@ interface Props {
 
 function DescriptionInput({ value, onBlur, onChange, error }: Props) {
   return (
-    <Input
-      value={value}
-      onChange={onChange}
-      onBlur={onBlur}
-      error={error}
-      placeholder="🍚 밥 먹기"
-      containerClassName="w-[250px]"
-    />
+    <div>
+      <input
+        type="text"
+        defaultValue={value}
+        onChange={onChange}
+        onBlur={e => onBlur(e.target.value)}
+        placeholder="🍚 밥 먹기"
+      />
+      {error && <p>{error}</p>}
+    </div>
   );
 }
 
