@@ -24,13 +24,6 @@ export default function Contents({
   createdAt,
   updatedAt,
 }: ContentsType) {
-  // 약속: bbaebak
-  // 약속하는 사람: maker
-  // 약속할 상대: mate
-  // 도장(=서명): stamp
-
-  console.log('약속할 사람들', mates);
-
   const mateValue = mates.map(item => item.name).join(', ');
 
   return (

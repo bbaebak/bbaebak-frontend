@@ -3,7 +3,7 @@
 import { getBbaebakDetail } from 'app/api/apiList';
 import ShareModal from 'app/common_components/ShareModal';
 import { useEffect, useState } from 'react';
-import NewButton from './components/button/NewButton';
+import MainLinkButton from './components/button/NewButton';
 import Notice from './components/button/Notice';
 import RefreshButton from './components/button/RefreshButton';
 import SaveImageButton from './components/button/SaveImageButton';
@@ -65,7 +65,6 @@ export default function Confirmation() {
 
   // test
   const testData = mockData;
-  console.log('anranr', testData);
   const { id, maker, date, desc, status, mates, createdAt, updatedAt } =
     testData[0];
 
@@ -82,10 +81,10 @@ export default function Confirmation() {
           className=" flex p-[24px] flex-col justify-center items-center gap-[12px] self-stretch rounded-[2px] bg-[#F6F5F2]"
         >
           <Date value={createdAt} />
-          {/* <Contents {...data} /> */}
+          <Contents {...data} />
 
           {/* 테스트용 */}
-          <Contents {...testData[0]} />
+          {/* <Contents {...testData[0]} /> */}
           <div className="w-[260px] h-[37px]">
             <Notice status={status} />
           </div>
@@ -103,7 +102,7 @@ export default function Confirmation() {
               />
             )}
           </div>
-          <NewButton />
+          <MainLinkButton />
         </section>
       </div>
     </div>

@@ -14,8 +14,6 @@ export default function SaveImageButton() {
     link.href = canvas.toDataURL('image/png');
     link.download = 'bbaebak-certificate.png';
     link.click(); // 사용자가 클릭하지 않아도 다운로드 동작 실행됨
-
-    console.log('이미 저장히기', signDocument);
   };
 
   return (

@@ -29,7 +29,7 @@ export default function Sign({
       onClick(id);
       setOnSign(true);
     }
-    console.log('클릭했다ㅏㅏㅏ');
+    console.log('클릭했다');
   };
   return (
     <div
@@ -48,21 +48,5 @@ export default function Sign({
         )}
       </div>
     </div>
-    // <div
-    //   className={`${onSign ? 'text-red-500' : 'text-black'} flex fle-col  gap-[24px] text-gray-4 font-suit text-[18px] font-medium leading-normal ${className}`}
-    //   onClick={handleClick}
-    // >
-    //   <p>{value}</p>
-    //   <div className="relative inline-block">
-    //     <p className="absolute inline z-0">(인)</p>
-    //     {onSign && (
-    //       <Stamp
-    //         className={
-    //           'absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
-    //         }
-    //       />
-    //     )}
-    //   </div>
-    // </div>
   );
 }

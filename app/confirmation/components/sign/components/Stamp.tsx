@@ -12,7 +12,6 @@ export default function Stamp({ className }: { className: string }) {
     setNumber(randomFn());
   }, []);
 
-  // const number = Math.floor(Math.random() * 13) + 1;
   return (
     <>
       <Image
