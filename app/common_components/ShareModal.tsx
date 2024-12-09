@@ -10,9 +10,10 @@ interface Props {
   isVisible: boolean;
   onClose: () => void;
   onValidate: () => string | null;
+  id: string
 }
 
-function ShareModal({ isVisible, onClose, onValidate }: Props) {
+function ShareModal({ isVisible, onClose, onValidate, id }: Props) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const [_, copy] = useCopyToClipboard();
@@ -31,7 +32,7 @@ function ShareModal({ isVisible, onClose, onValidate }: Props) {
       return;
     }
 
-    const currentUrl = window.location.href;
+    const currentUrl = `https://bbaebak-frontend.vercel.app/confirmation?id=${id}`
     copy(currentUrl)
       .then(() => {
         setToastMessage('링크를 복사했어요!');
@@ -71,10 +72,10 @@ function ShareModal({ isVisible, onClose, onValidate }: Props) {
         style={{
           boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
         }}
-        initial={{ y: '100%' }} // Start below the screen
-        animate={{ y: isVisible ? '0' : '100%' }} // Animate to 0 (appear) or 100% (disappear)
-        exit={{ y: '100%' }} // Exit animation: move downwards
-        transition={{ type: 'spring', stiffness: 300, damping: 25 }} // Smooth spring animation
+        initial={{ y: '100%' }}
+        animate={{ y: isVisible ? '0' : '100%' }}
+        exit={{ y: '100%' }}
+        transition={{ type: 'spring', stiffness: 300, damping: 25 }}
       >
         <div className="w-full max-w-[430px] mx-auto h-[180px] flex flex-col items-center justify-center">
           <span className="text-lg font-medium">공유하기</span>
