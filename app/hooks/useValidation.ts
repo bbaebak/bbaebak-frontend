@@ -1,10 +1,11 @@
 import { validateDescription, validateName } from 'app/utils/validation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface ValidationHookReturn {
   value: string;
   setValue: (value: string) => void;
   error: string;
+  handleBlur: () => void;
 }
 
 export const useValidation = (
@@ -13,12 +14,28 @@ export const useValidation = (
 ): ValidationHookReturn => {
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState('');
+  const [isDirty, setIsDirty] = useState(false);
 
-  useEffect(() => {
+  const validate = (currentValue: string) => {
+    if (!isDirty) return;
+
     const validationError =
-      type === 'name' ? validateName(value) : validateDescription(value);
+      type === 'name'
+        ? validateName(currentValue)
+        : validateDescription(currentValue);
     setError(validationError);
-  }, [value, type]);
+  };
 
-  return { value, setValue, error };
+  const handleValueChange = (newValue: string) => {
+    setValue(newValue);
+    setIsDirty(true);
+    validate(newValue);
+  };
+
+  const handleBlur = () => {
+    setIsDirty(true);
+    validate(value);
+  };
+
+  return { value, setValue: handleValueChange, error, handleBlur };
 };
