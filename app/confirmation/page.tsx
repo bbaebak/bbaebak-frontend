@@ -11,14 +11,7 @@ import ShareButton from './components/button/ShareButton';
 import Contents from './components/contents/Contents';
 import Date from './components/contents/Date';
 import Title from './components/contents/Title';
-import Image from 'next/image';
-import polygon from '@public/polygon.svg';
-import stamp1 from '@public/stamp/1.svg';
-import Stamp from './components/sign/components/Stamp';
-import { instance } from 'app/api';
 import { useParams } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import Signature from './components/sign/Signature';
 import mockData from './mockData.json';
 
@@ -40,7 +33,7 @@ interface fetchDataType {
 }
 
 export default function Confirmation() {
-  const params = useParams();
+  // const params = useParams();
   const [data, setData] = useState<fetchDataType>({
     id: '',
     maker: '',
@@ -67,14 +60,14 @@ export default function Confirmation() {
     handleFetch();
   }, [ID]);
 
-  const { maker, status, mates, createdAt } = data;
+  // const { maker, status, mates, createdAt } = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // test
-  // const testData = mockData;
-  // console.log('anranr', testData);
-  // const { id, maker, date, desc, status, mates, createdAt, updatedAt } =
-  //   testData[0];
+  const testData = mockData;
+  console.log('anranr', testData);
+  const { id, maker, date, desc, status, mates, createdAt, updatedAt } =
+    testData[0];
 
   return (
     // <div className="flex flex-col w-[430px] h-[932px] pd">
@@ -92,7 +85,7 @@ export default function Confirmation() {
           {/* <Contents {...data} /> */}
 
           {/* 테스트용 */}
-          {/* <Contents {...testData[0]} /> */}
+          <Contents {...testData[0]} />
           <div className="w-[260px] h-[37px]">
             <Notice status={status} />
           </div>

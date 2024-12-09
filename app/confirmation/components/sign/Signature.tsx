@@ -1,27 +1,32 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import Sign from './components/Sign';
 import { postBbaebak, postMateSign } from 'app/api/apiList';
 // import Stamp from './components/Stamp';
 
 interface SignatureType {
   maker: string;
-  mates: {
-    id: string;
-    name: string;
-    isSigned: boolean;
-  }[];
+  mates: MatesType[];
   status: string;
 }
 
+interface MatesType {
+  id: string;
+  name: string;
+  isSigned: boolean;
+}
+[];
+
 export default function Signature({ maker, mates, status }: SignatureType) {
   console.log('서명 데이터', maker, mates, status);
-  const [onSign, setOnSign] = useState(false);
+  const [matesData, setMatesData] = useState<MatesType[]>([]);
+  // const [onSign, setOnSign] = useState<MatesType[]>([]);
+  const [onSignEdit, setOnSignEdit] = useState(true);
 
   const handleClick = (value: string) => {
     console.log('클릭했다', value);
-    setOnSign(true);
+    setOnSignEdit(false);
     // 메이트 서명
     // const handleFetch = async () => {
     //   try {
@@ -35,6 +40,14 @@ export default function Signature({ maker, mates, status }: SignatureType) {
     // handleFetch();
   };
 
+  // useEffect(() => {
+  //   if (mates.length > 0) {
+  //     setOnSignEdit([...mates]);
+  //   }
+
+  //   console.log('온사인 유즈스테이트', onSignEdit);
+  // }, [mates]);
+
   return (
     <section className="grid grid-cols-2 p-[12px_16px] justify-center items-end gap-[24px] self-stretch border-t border-b border-[#97D0EC] mt-[12px]">
       <Sign
@@ -42,6 +55,7 @@ export default function Signature({ maker, mates, status }: SignatureType) {
         name={maker}
         onClick={() => handleClick}
         isSigned={true}
+        onEdit={onSignEdit}
         className="col-start-2 row-start-3 items-start"
       />
       {Array.isArray(mates) &&
@@ -67,6 +81,7 @@ export default function Signature({ maker, mates, status }: SignatureType) {
               onClick={() => handleClick}
               isSigned={item.isSigned}
               className={positionClass}
+              onEdit={onSignEdit}
             />
           );
         })}

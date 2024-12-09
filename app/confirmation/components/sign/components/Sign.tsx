@@ -8,6 +8,7 @@ interface SignProps {
   id: string;
   isSigned: boolean;
   className: string;
+  onEdit: boolean;
   onClick: (id: string) => void;
 }
 
@@ -16,6 +17,7 @@ export default function Sign({
   id,
   isSigned,
   className,
+  onEdit,
   onClick,
 }: SignProps) {
   const [onSign, setOnSign] = useState(isSigned);
@@ -23,12 +25,15 @@ export default function Sign({
     if (onSign) {
       return;
     }
-    onClick(id);
-    setOnSign(true);
+    if (onEdit) {
+      onClick(id);
+      setOnSign(true);
+    }
+    console.log('클릭했다ㅏㅏㅏ');
   };
   return (
     <div
-      className={`${onSign ? 'text-red-500' : 'text-black'} flex justify-center items-center text-[#454545] font-suit text-[18px] font-medium leading-normal ${className}`}
+      className={`flex justify-center items-center text-[#454545] font-suit text-[18px] font-medium leading-normal ${className}`}
       onClick={handleClick}
     >
       <div className="min-w-[60px] text-right">{name}</div>

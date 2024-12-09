@@ -1,4 +1,5 @@
 import moment from 'moment';
+import Calendar from 'react-calendar';
 
 export default function Date({ value }: { value: string }) {
   // if (!value) {
@@ -16,6 +17,7 @@ export default function Date({ value }: { value: string }) {
   // });
 
   // console.log('vava', value);
+  // const today = new Date();
   return (
     <div className="text-[#51B1E0] font-suit text-[18px] font-medium leading-normal">
       {value}
