@@ -15,8 +15,10 @@ import { useParams } from 'next/navigation';
 import Signature from './components/sign/Signature';
 import mockData from './mockData.json';
 
-// const ID = 'd512b9ac-4d30-4fee-ae0f-444533555cd5'; // 약속 아이디1
-const ID = '877d983f-b030-48dd-8906-2fe4ba16b9c5'; // 약속 아이디2
+// const ID = 'd512b9ac-4d30-4fee-ae0f-444533555cd5'; // 약속 아이디 (완)
+const ID = '877d983f-b030-48dd-8906-2fe4ba16b9c5'; // 약속 아이디 (완)
+// const ID = '6a32d36b-6d9a-487f-80ec-74fff502c538'; // 약속 아이디
+// const ID = '8b08dbbf-ea47-4436-a494-d85c264b2726'; // 약속 아이디
 
 interface fetchDataType {
   id: string;
@@ -79,10 +81,12 @@ export default function Confirmation() {
   // const { id, maker, date, desc, status, mates, createdAt, updatedAt } =
   //   testData[0];
 
+  console.log('증명서 페이지에서 받은 mates', mates);
+
   return (
     // <div className="flex flex-col w-[430px] h-[932px] pd">
-    <div className="flex flex-col w-full h-full overflow-y-auto pd">
-      <header className="inline-flex justify-center items-center py-0 px-[93.5px] relative mt-[34px]">
+    <div className="flex flex-col w-full h-full overflow-y-auto scrollbar-gutter-stable pd">
+      <header className="inline-flex justify-center items-center py-0 px-[93.5px] relative mt-[34px] mb-[24px]">
         <Title status={status} />
         <RefreshButton />
       </header>

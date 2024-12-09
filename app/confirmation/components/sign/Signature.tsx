@@ -21,18 +21,19 @@ interface MatesType {
 
 export default function Signature({ id, maker, mates, status }: SignatureType) {
   console.log('서명 데이터', maker, mates, status);
-  const [matesData, setMatesData] = useState({
+  const [matesData, setMatesData] = useState<MatesType[]>([]);
+  const [editData, setEditData] = useState({
     id: '',
     mateId: '',
     isSigned: false,
   });
   // const [onSign, setOnSign] = useState<MatesType[]>([]);
-  const [onSignEdit, setOnSignEdit] = useState({});
+  const [onSignEdit, setOnSignEdit] = useState(true);
   const [isModal, setIsModal] = useState(false);
   const [yesBbaeback, setYesBbaeback] = useState(false);
 
   const handleClick = async (mateId: string) => {
-    setMatesData({
+    setEditData({
       id: id,
       mateId: mateId,
       isSigned: true,
@@ -47,19 +48,43 @@ export default function Signature({ id, maker, mates, status }: SignatureType) {
   const handleSignOk = async () => {
     setOnSignEdit(false);
     console.log('서명했다');
+
     try {
-      const res = await postMateSign(matesData);
+      const res = await postMateSign(editData);
       const data = res;
       console.log('받은 res', res);
     } catch (error) {
       console.log('에러', error);
     }
+    const newData = matesData.map(item =>
+      item.id === editData.mateId ? { ...item, isSigned: true } : { ...item }
+    );
+
+    setMatesData([...newData]);
     handleModalClose();
   };
 
+  // console.log('mates 값들)
+  // useEffect(() => {
+  //   console.log('현재 도장찍을애들22222', mates);
+  //   if (Array.isArray(mates)) {
+  //     return;
+  //   }
+  //   setMatesData([...mates]);
+  // }, []);
+
+  useEffect(() => {
+    if (mates && mates.length > 0) {
+      setMatesData(mates);
+    }
+  }, [mates]);
+
+  console.log('현재 도장찍을애들 사인컴ㅍㄷㄷ', mates);
+  console.log('현재 도장찍을애들', matesData);
   return (
-    <section className="grid grid-cols-2 p-[12px_16px] justify-center items-end gap-[24px] self-stretch border-t border-b border-[#97D0EC] mt-[12px]">
+    <section className="grid grid-cols-2 p-[12px_16px] justify-center items-end gap-[12px] self-stretch border-t border-b border-[#97D0EC] ">
       <Sign
+        key={id}
         id={'user'}
         name={maker}
         maker={maker}
@@ -68,8 +93,8 @@ export default function Signature({ id, maker, mates, status }: SignatureType) {
         onEdit={onSignEdit}
         className="col-start-2 row-start-3 items-start"
       />
-      {Array.isArray(mates) &&
-        mates.map((item, index) => {
+      {Array.isArray(matesData) &&
+        matesData.map((item, index) => {
           let positionClass = '';
           // 각 항목의 위치 설정
           if (index === 0) {

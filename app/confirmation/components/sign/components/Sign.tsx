@@ -23,23 +23,29 @@ export default function Sign({
   onEdit,
   onClick,
 }: SignProps) {
-  const [onSign, setOnSign] = useState(isSigned);
+  // const [onSign, setOnSign] = useState(isSigned);
   // const [isModal, setIsModal] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (isSigned) {
       return;
     }
+    console.log('클릭했다???');
+
     if (onEdit) {
-      console.log('클릭했다???');
       onClick(id);
-      // setOnSign(true);
     }
+
+    // const sign = await onEdit()
+
+    // setOnSign(true);
   };
+
   return (
     <div
-      className={`flex justify-center items-center text-[#454545] font-suit text-[18px] font-medium leading-normal ${className}`}
+      className={`flex justify-center items-center text-[#454545] font-suit text-[18px] font-medium leading-normal cursor-pointer ${className}`}
       onClick={handleClick}
+      z-index
     >
       <div className="min-w-[60px] text-right">{name}</div>
       <div className="relative w-[200px] flex items-center justify-center ">
@@ -52,6 +58,12 @@ export default function Sign({
           />
         )}
       </div>
+      {/* <StampModal
+        isVisible={isModal}
+        name={maker}
+        onClose={handleModalClose}
+        onClick={handleSignOk}
+      /> */}
     </div>
   );
 }
