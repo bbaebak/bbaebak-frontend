@@ -5,7 +5,6 @@ export default function Date({ value }: { value: string }) {
   return (
     <div className="text-[#51B1E0] font-suit text-[18px] font-medium leading-normal">
       {formattedDate}
-      {/* {  ${moment(value).year()}} */}
     </div>
   );
 }
