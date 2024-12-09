@@ -47,6 +47,7 @@ export default function Confirmation() {
     createdAt: '',
     updatedAt: '',
   });
+  const test = '테스트';
 
   useEffect(() => {
     const handleFetch = async () => {
