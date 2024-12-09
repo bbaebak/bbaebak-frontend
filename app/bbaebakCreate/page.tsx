@@ -6,6 +6,8 @@ import SendCertificateBtn from 'app/bbaebakCreate/components/button/SendCertific
 import DescriptionInput from 'app/bbaebakCreate/components/input/DescriptionInput';
 import MateInput from 'app/bbaebakCreate/components/input/mate/MateInput';
 import NameInput from 'app/bbaebakCreate/components/input/NameInput';
+import ShareModal from 'app/common_components/ShareModal';
+import StampModal from 'app/common_components/StampModal';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ko';
 import Image from 'next/image';
@@ -13,17 +15,20 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import DateInput from './components/input/DateInput';
-import { useBbaebakForm } from './hooks/useBbaebakForm';
-import {
-  ERROR_DESCRIPTION_EMPTY,
-  ERROR_NAME_EMPTY,
-} from 'app/constants/validation';
-import moment from 'moment';
-import ShareModal from 'app/common_components/ShareModal';
 import Sign from './components/stamp/Sign';
-import StampModal from 'app/common_components/StampModal';
+import { useBbaebakForm } from './hooks/useBbaebakForm';
 
 function BbaebakCreate() {
+  const [isClient, setIsClient] = useState(false);
+  const [id, setId] = useState<string | null>(null);
+  const [showStamp, setShowStamp] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isStampModalShown, setIsStampModalShown] = useState(false);
+
+  const searchParams = useSearchParams();
+  const queryId = searchParams.get('id');
+
   const {
     nameValidation,
     descriptionValidation,
@@ -35,16 +40,6 @@ function BbaebakCreate() {
     handleMateRemove,
     validateAllFields,
   } = useBbaebakForm();
-
-  const [isClient, setIsClient] = useState(false);
-  const [id, setId] = useState<string | null>(null);
-  const [showStamp, setShowStamp] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [isStampModalShown, setIsStampModalShown] = useState(false);
-
-  const searchParams = useSearchParams();
-  const queryId = searchParams.get('id');
 
   useEffect(() => {
     dayjs.locale('ko');
@@ -73,14 +68,6 @@ function BbaebakCreate() {
     },
   });
 
-  const handleSubmit = () => {
-    setIsShareModalOpen(true);
-    if (validateAllFields()) {
-      updateBbaebakMutation.mutate();
-      setIsShareModalOpen(true);
-    }
-  };
-
   const makerSignedBbaebakMutation = useMutation({
     mutationFn: () =>
       postMakerSign({
@@ -98,6 +85,14 @@ function BbaebakCreate() {
       console.error(error);
     },
   });
+
+  const handleSubmit = () => {
+    setIsShareModalOpen(true);
+    if (validateAllFields()) {
+      updateBbaebakMutation.mutate();
+      setIsShareModalOpen(true);
+    }
+  };
 
   const handleButtonClick = () => {
     if (!isStampModalShown) {
