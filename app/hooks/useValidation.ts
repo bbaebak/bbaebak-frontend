@@ -1,3 +1,4 @@
+import { validateDescription, validateName } from 'app/utils/validation';
 import { useState } from 'react';
 
 interface ValidationHookReturn {
@@ -7,13 +8,34 @@ interface ValidationHookReturn {
   handleBlur: () => void;
 }
 
-export const useValidation = (initialValue: string): ValidationHookReturn => {
+export const useValidation = (
+  initialValue: string,
+  type: 'name' | 'description'
+): ValidationHookReturn => {
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState('');
+  const [isDirty, setIsDirty] = useState(false);
 
-  const handleBlur = () => {
-    // 여기서 validation 로직 처리
+  const validate = (currentValue: string) => {
+    if (!isDirty) return;
+
+    const validationError =
+      type === 'name'
+        ? validateName(currentValue)
+        : validateDescription(currentValue);
+    setError(validationError);
   };
 
-  return { value, setValue, error, handleBlur };
+  const handleValueChange = (newValue: string) => {
+    setValue(newValue);
+    setIsDirty(true);
+    validate(newValue);
+  };
+
+  const handleBlur = () => {
+    setIsDirty(true);
+    validate(value);
+  };
+
+  return { value, setValue: handleValueChange, error, handleBlur };
 };

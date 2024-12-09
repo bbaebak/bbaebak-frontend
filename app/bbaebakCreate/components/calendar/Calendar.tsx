@@ -1,8 +1,8 @@
+import { m } from 'framer-motion';
 import moment from 'moment';
 import { useEffect, useRef, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { m } from 'framer-motion';
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -93,7 +93,7 @@ function CustomCalendar({ isVisible, onClose, onDateSelect }: CalendarProps) {
         />
       </div>
       <button
-        className="absolute top-[54px] right-[115px] bg-[#efefef] text-black font-light text-[1.1rem] py-2 px-4 rounded-[6px] flex items-center justify-center"
+        className="absolute top-[62px] right-[70px] flex px-2 py-1 justify-center items-center gap-[10px] rounded-[6px] border border-[#E0E0E0] bg-[#F8F8F8] text-black font-light text-[1.1rem]"
         onClick={handleSelectAllDates}
       >
         이 달 안에

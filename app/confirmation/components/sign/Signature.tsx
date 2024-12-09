@@ -20,17 +20,14 @@ interface MatesType {
 }
 
 export default function Signature({ id, maker, mates, status }: SignatureType) {
-  console.log('서명 데이터', maker, mates, status);
   const [matesData, setMatesData] = useState<MatesType[]>([]);
   const [editData, setEditData] = useState({
     id: '',
     mateId: '',
     isSigned: false,
   });
-  // const [onSign, setOnSign] = useState<MatesType[]>([]);
   const [onSignEdit, setOnSignEdit] = useState(true);
   const [isModal, setIsModal] = useState(false);
-  const [yesBbaeback, setYesBbaeback] = useState(false);
 
   const handleClick = async (mateId: string) => {
     setEditData({
@@ -47,7 +44,6 @@ export default function Signature({ id, maker, mates, status }: SignatureType) {
 
   const handleSignOk = async () => {
     setOnSignEdit(false);
-    console.log('서명했다');
 
     try {
       const res = await postMateSign(editData);
@@ -64,23 +60,12 @@ export default function Signature({ id, maker, mates, status }: SignatureType) {
     handleModalClose();
   };
 
-  // console.log('mates 값들)
-  // useEffect(() => {
-  //   console.log('현재 도장찍을애들22222', mates);
-  //   if (Array.isArray(mates)) {
-  //     return;
-  //   }
-  //   setMatesData([...mates]);
-  // }, []);
-
   useEffect(() => {
     if (mates && mates.length > 0) {
       setMatesData(mates);
     }
   }, [mates]);
 
-  console.log('현재 도장찍을애들 사인컴ㅍㄷㄷ', mates);
-  console.log('현재 도장찍을애들', matesData);
   return (
     <section className="grid grid-cols-2 p-[12px_16px] justify-center items-end gap-[12px] self-stretch border-t border-b border-[#97D0EC] ">
       <Sign

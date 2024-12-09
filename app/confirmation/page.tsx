@@ -16,7 +16,7 @@ import Signature from './components/sign/Signature';
 import mockData from './mockData.json';
 
 // const ID = 'd512b9ac-4d30-4fee-ae0f-444533555cd5'; // 약속 아이디 (완)
-const ID = '877d983f-b030-48dd-8906-2fe4ba16b9c5'; // 약속 아이디 (완)
+// const ID = '877d983f-b030-48dd-8906-2fe4ba16b9c5'; // 약속 아이디 (완)
 // const ID = '6a32d36b-6d9a-487f-80ec-74fff502c538'; // 약속 아이디
 // const ID = '8b08dbbf-ea47-4436-a494-d85c264b2726'; // 약속 아이디
 
@@ -35,14 +35,8 @@ interface fetchDataType {
   updatedAt: any;
 }
 
-// async function getServerSideProps({ params }) {
-//   const { id } = params;
-//   const res = await getBbaebakDetail(ID);
-//   return { props: { res } };
-// }
-
 export default function Confirmation() {
-  // const params = useParams();
+  const params = useParams<{ id: string }>();
   const [data, setData] = useState<fetchDataType>({
     id: '',
     maker: '',
@@ -57,7 +51,7 @@ export default function Confirmation() {
   useEffect(() => {
     const handleFetch = async () => {
       try {
-        const res = await getBbaebakDetail(ID); // 아이디 생성시 params.id로 변경
+        const res = await getBbaebakDetail(params.id); // 아이디 생성시 params.id로 변경
         const data = res.data.data;
         setData({
           ...data,
@@ -67,14 +61,10 @@ export default function Confirmation() {
       }
     };
     handleFetch();
-  }, [ID]);
+  }, [params.id]);
 
-  // const { maker, status, mates, createdAt } = data;
   const { maker, status, mates, createdAt } = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const getData = getServerSideProps();
-
-  // console.log('api', res);
 
   // test
   // const testData = mockData;
@@ -84,7 +74,6 @@ export default function Confirmation() {
   console.log('증명서 페이지에서 받은 mates', mates);
 
   return (
-    // <div className="flex flex-col w-[430px] h-[932px] pd">
     <div className="flex flex-col w-full h-full overflow-y-auto scrollbar-gutter-stable no-scrollbar pd">
       <header className="inline-flex justify-center items-center py-0 px-[93.5px] relative mt-[34px] mb-[24px]">
         <Title status={status} />
@@ -104,7 +93,12 @@ export default function Confirmation() {
             <Notice status={status} />
           </div>
 
-          <Signature id={ID} maker={maker} mates={mates} status={status} />
+          <Signature
+            id={params.id}
+            maker={maker}
+            mates={mates}
+            status={status}
+          />
         </section>
         <section>
           <div className="flex items-start gap-4 self-stretch mt-[24px]">
@@ -115,7 +109,7 @@ export default function Confirmation() {
                 isVisible={isModalOpen}
                 onClose={() => setIsModalOpen(!isModalOpen)}
                 onValidate={() => null}
-                id={ID}
+                id={params.id}
                 userName={maker}
               />
             )}

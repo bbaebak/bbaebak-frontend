@@ -12,13 +12,14 @@ import {
 import { useState } from 'react';
 
 export const useBbaebakForm = () => {
-  const nameValidation = useValidation('');
-  const descriptionValidation = useValidation('');
-  const mateNameValidation = useValidation('');
+  const nameValidation = useValidation('', 'name');
+  const descriptionValidation = useValidation('', 'description');
+  const mateNameValidation = useValidation('', 'name');
 
   const [mateNames, setMateNames] = useState<string[]>([]);
   const [mateCountError, setMateCountError] = useState('');
   const [selectedDate, setSelectedDate] = useState<any>(null);
+  const [isStampSigned, setIsStampSigned] = useState(false);
 
   const handleMateNameChange = (mateName: string) => {
     if (mateNames.length >= MATE_MAX_LENGTH) {
@@ -60,6 +61,11 @@ export const useBbaebakForm = () => {
       return ERROR_DATE_EMPTY;
     }
 
+    // 도장 검증
+    if (!isStampSigned) {
+      return '도장을 찍어주세요.';
+    }
+
     return null;
   };
 
@@ -74,5 +80,7 @@ export const useBbaebakForm = () => {
     handleMateNameChange,
     handleMateRemove,
     validateAllFields,
+    isStampSigned,
+    setIsStampSigned,
   };
 };

@@ -6,9 +6,6 @@ import kakaoIcon from '@public/kakaoIcon.svg';
 export default function KakaoShareButton({ userName }: any) {
   const handleShearToKakao = () => {
     const { Kakao, location } = window;
-    // Kakao.Share.sendScrap({
-    //   requestUrl: location.href,
-    // });
 
     Kakao.Share.sendDefault({
       objectType: 'feed',

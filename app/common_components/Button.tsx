@@ -22,10 +22,10 @@ const Button = forwardRef(function Button(
     <button
       type={type}
       ref={forwardedRef}
-      className={`
+      className={`르
         flex justify-center items-center
         ${width ? width : 'w-full'}
-        ${status === 'Disabled' ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-600 text-white cursor-pointer'}
+        ${status === 'Disabled' ? 'bg-gray-1 text-gray-3 cursor-not-allowed' : 'bg-[#51B1E0] text-white cursor-pointer'}
         h-[53px] rounded-md text-lg font-bold
       `}
       disabled={status === 'Disabled'}
