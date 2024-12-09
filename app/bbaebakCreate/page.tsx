@@ -112,49 +112,49 @@ function BbaebakCreate() {
         </Link>
         가벼운 빼박 증명서 만들기
       </div>
-
       <div className="bg-[#f6f5f2] flex flex-col gap-2 p-5 pt-5 mt-[20px] h-auto rounded-[2px]">
         <span className="text-[#97D0EC] text-center mb-4">
           {dayjs().format('YYYY년 MM월 DD일')}
         </span>
 
         <div className="flex flex-col gap-[25px]">
-          <div className="flex gap-[5px]">
-            <NameInput
-              value={nameValidation.value}
-              onChange={e => nameValidation.setValue(e.target.value)}
-              error={nameValidation.error}
-              onBlur={nameValidation.handleBlur}
-            />
-            은/는
+          <div className="flex flex-col gap-[25px]">
+            <div className="flex gap-[5px]">
+              <NameInput
+                value={nameValidation.value}
+                onChange={e => nameValidation.setValue(e.target.value)}
+                error={nameValidation.error}
+                onBlur={nameValidation.handleBlur}
+              />
+              은/는
+            </div>
+
+            <div className="flex gap-[5px]">
+              <DateInput value={selectedDate} onChange={setSelectedDate} />
+            </div>
+
+            <div className="flex gap-[5px]">
+              <MateInput
+                mateNames={mateNames}
+                onMateChange={handleMateNameChange}
+                error={mateCountError}
+                onMateRemove={handleMateRemove}
+              />
+              과 함께
+            </div>
+
+            <div className="flex gap-[5px]">
+              <DescriptionInput
+                value={descriptionValidation.value}
+                onChange={e => descriptionValidation.setValue(e.target.value)}
+                error={descriptionValidation.error}
+                onBlur={descriptionValidation.handleBlur}
+              />
+              를 약속합니다.
+            </div>
           </div>
 
-          <div className="flex gap-[5px]">
-            <DateInput value={selectedDate} onChange={setSelectedDate} />
-          </div>
-
-          <div className="flex gap-[5px]">
-            <MateInput
-              mateNames={mateNames}
-              onMateChange={handleMateNameChange}
-              error={mateCountError}
-              onMateRemove={handleMateRemove}
-            />
-            과 함께
-          </div>
-
-          <div className="flex gap-[5px]">
-            <DescriptionInput
-              value={descriptionValidation.value}
-              onChange={e => descriptionValidation.setValue(e.target.value)}
-              error={descriptionValidation.error}
-              onBlur={descriptionValidation.handleBlur}
-            />
-            를 약속합니다.
-          </div>
-        </div>
-
-        <div className="p-[10px_16px] self-stretch border-t border-b border-[#97D0EC] mt-auto mt-12">
+          <div className="p-[10px_16px] self-stretch border-t border-b border-[#97D0EC] mt-auto mt-12"></div>
           <Sign
             maker={nameValidation.value}
             isSigned={showStamp}
@@ -162,8 +162,7 @@ function BbaebakCreate() {
             mates={mateNames}
           />
         </div>
-      </div>
-
+      </div>{' '}
       {isShareModalOpen && (
         <ShareModal
           isVisible={isShareModalOpen}
@@ -171,7 +170,6 @@ function BbaebakCreate() {
           onValidate={validateAllFields}
         />
       )}
-
       <div className="mt-6 text-center">
         <SendCertificateBtn
           isEnabled={Boolean(
@@ -186,7 +184,6 @@ function BbaebakCreate() {
           onClick={() => handleSubmit()}
         />
       </div>
-
       <StampModal
         isVisible={isModalOpen}
         onClose={() => setIsModalOpen(false)}

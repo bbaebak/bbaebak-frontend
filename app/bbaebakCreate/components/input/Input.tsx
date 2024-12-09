@@ -35,7 +35,7 @@ function Input({
     <div className="relative">
       <div className={containerClassName}>
         <div
-          className={`inline-flex items-center gap-2 p-1 rounded-lg border border-[#E0E0E0] bg-white ${
+          className={`flex w-full items-center justify-center gap-2 p-1 rounded-lg border border-[#E0E0E0] bg-white ${
             readonly ? 'cursor-pointer' : ''
           }`}
           onClick={onClick}
@@ -62,7 +62,7 @@ function Input({
               onKeyDown={onKeyDown}
               placeholder={placeholder}
               readOnly={readonly}
-              className={`pr-2 pl-2 w-full bg-transparent border-none outline-none text-base ${className} ${
+              className={`pr-2 pl-2 w-full bg-transparent border-none outline-none text-base [&:not(:placeholder-shown)]:text-center ${className} ${
                 readonly ? 'cursor-pointer' : ''
               }`}
             />

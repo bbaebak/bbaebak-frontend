@@ -1,8 +1,8 @@
 'use client';
-import { useState, useEffect } from 'react';
+import moment from 'moment';
+import { useState } from 'react';
 import CustomCalendar from '../calendar/Calendar';
 import Input from './Input';
-import moment from 'moment';
 
 interface Props {
   value: any;
@@ -15,23 +15,22 @@ function DateInput({ value, onChange, error }: Props) {
   const handleDateSelect = (date: any) => {
     if (Array.isArray(date)) {
       onChange(
-        `${moment(date[0]).format('YYYY년 MM월 DD일부터')} ${moment(date[1]).format('YYYY년 MM월 DD일 중')}`
+        `${moment(date[0]).format('M월 D일')}부터 ${moment(date[1]).format('M월 D일')} 중에`
       );
     } else {
-      onChange(moment(date).format('YYYY년 MM월 DD일'));
+      onChange(moment(date).format('M월 D일에'));
     }
   };
 
   return (
-    <div>
+    <div className="flex justify-center">
       <Input
         value={value || ''}
         onChange={() => {}}
         error={error}
         placeholder="언제"
         onClick={() => setIsCalendarOpen(true)}
-        containerClassName="w-[200px]"
-        suffix={<span className="text-gray-400"></span>}
+        containerClassName="w-[210px]"
         readonly
       />
       {isCalendarOpen && (

@@ -24,14 +24,14 @@ function MateInput({ mateNames, onMateChange, onMateRemove, error }: Props) {
   };
 
   return (
-    <div className="flex flex-col gap-2 w-[200px]">
+    <div className="flex flex-col gap-2 w-[210px]">
       <div className="flex gap-2">
         <Input
           value={mateName}
           onChange={handleChange}
           error={error}
           placeholder="상대방의 이름"
-          containerClassName="w-[200px]"
+          containerClassName="w-[210px]"
           onKeyDown={handleKeyDown}
           suffix={
             <button
