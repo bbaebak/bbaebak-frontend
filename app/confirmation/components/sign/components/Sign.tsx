@@ -23,24 +23,16 @@ export default function Sign({
   onEdit,
   onClick,
 }: SignProps) {
-  // const [onSign, setOnSign] = useState(isSigned);
-  const [isModal, setIsModal] = useState(false);
+  const [onSign, setOnSign] = useState(isSigned);
+  // const [isModal, setIsModal] = useState(false);
 
-  const handleModalClose = () => {
-    setIsModal(false);
-  };
-
-  const handleSignOk = () => {
-    console.log('서명합니다');
-  };
   const handleClick = () => {
     if (isSigned) {
       return;
     }
     if (onEdit) {
-      setIsModal(true);
       console.log('클릭했다???');
-      // onClick(id);
+      onClick(id);
       // setOnSign(true);
     }
   };
@@ -60,12 +52,6 @@ export default function Sign({
           />
         )}
       </div>
-      <StampModal
-        isVisible={isModal}
-        name={maker}
-        onClose={handleModalClose}
-        onClick={handleSignOk}
-      />
     </div>
   );
 }

@@ -38,30 +38,23 @@ export default function Signature({ id, maker, mates, status }: SignatureType) {
       isSigned: true,
     });
     setIsModal(true);
-    console.log('클릭했다', mateId);
-    setOnSignEdit(false);
   };
-  // useEffect(() => {
-  //   if (mates.length > 0) {
-  //     setOnSignEdit([...mates]);
-  //   }
-
-  //   console.log('온사인 유즈스테이트', onSignEdit);
-  // }, [mates]);
 
   const handleModalClose = () => {
     setIsModal(false);
   };
 
-  const handleModalOk = async () => {
+  const handleSignOk = async () => {
+    setOnSignEdit(false);
+    console.log('서명했다');
     try {
       const res = await postMateSign(matesData);
-      // const res = await postBbaebak();
       const data = res;
       console.log('받은 res', res);
     } catch (error) {
       console.log('에러', error);
     }
+    handleModalClose();
   };
 
   return (
@@ -103,12 +96,12 @@ export default function Signature({ id, maker, mates, status }: SignatureType) {
             />
           );
         })}
-      {/* <StampModal
+      <StampModal
         isVisible={isModal}
         name={maker}
         onClose={handleModalClose}
-        onClick={handleModalOk}
-      /> */}
+        onClick={handleSignOk}
+      />
     </section>
   );
 }
