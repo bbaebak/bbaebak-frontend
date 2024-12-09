@@ -115,6 +115,8 @@ export default function Confirmation() {
                 isVisible={isModalOpen}
                 onClose={() => setIsModalOpen(!isModalOpen)}
                 onValidate={() => null}
+                id={ID}
+                userName={maker}
               />
             )}
           </div>
