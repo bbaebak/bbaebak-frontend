@@ -91,7 +91,7 @@ function BbaebakCreate() {
       if (!isStampModalShown) {
         setShowStamp(true);
         setIsModalOpen(false);
-        setIsStampModalShown(true);
+        setIsShown(true);
       }
     },
     onError: error => {

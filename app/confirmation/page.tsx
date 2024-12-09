@@ -15,7 +15,8 @@ import { useParams } from 'next/navigation';
 import Signature from './components/sign/Signature';
 import mockData from './mockData.json';
 
-const ID = 'd512b9ac-4d30-4fee-ae0f-444533555cd5'; // 약속 아이디
+// const ID = 'd512b9ac-4d30-4fee-ae0f-444533555cd5'; // 약속 아이디1
+const ID = '877d983f-b030-48dd-8906-2fe4ba16b9c5'; // 약속 아이디2
 
 interface fetchDataType {
   id: string;
@@ -99,7 +100,7 @@ export default function Confirmation() {
             <Notice status={status} />
           </div>
 
-          <Signature maker={maker} mates={mates} status={status} />
+          <Signature id={ID} maker={maker} mates={mates} status={status} />
         </section>
         <section>
           <div className="flex items-start gap-4 self-stretch mt-[24px]">

@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import Stamp from './Stamp';
+import StampModal from 'app/common_components/StampModal';
 
 interface SignProps {
   name: string;
   id: string;
+  maker: string;
   isSigned: boolean;
   className: string;
   onEdit: boolean;
@@ -15,21 +17,32 @@ interface SignProps {
 export default function Sign({
   name,
   id,
+  maker,
   isSigned,
   className,
   onEdit,
   onClick,
 }: SignProps) {
-  const [onSign, setOnSign] = useState(isSigned);
+  // const [onSign, setOnSign] = useState(isSigned);
+  const [isModal, setIsModal] = useState(false);
+
+  const handleModalClose = () => {
+    setIsModal(false);
+  };
+
+  const handleSignOk = () => {
+    console.log('서명합니다');
+  };
   const handleClick = () => {
-    if (onSign) {
+    if (isSigned) {
       return;
     }
     if (onEdit) {
-      onClick(id);
-      setOnSign(true);
+      setIsModal(true);
+      console.log('클릭했다???');
+      // onClick(id);
+      // setOnSign(true);
     }
-    console.log('클릭했다');
   };
   return (
     <div
@@ -39,7 +52,7 @@ export default function Sign({
       <div className="min-w-[60px] text-right">{name}</div>
       <div className="relative w-[200px] flex items-center justify-center ">
         <p className="absolute z-0">(인)</p>
-        {onSign && (
+        {isSigned && (
           <Stamp
             className={
               'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10'
@@ -47,6 +60,12 @@ export default function Sign({
           />
         )}
       </div>
+      <StampModal
+        isVisible={isModal}
+        name={maker}
+        onClose={handleModalClose}
+        onClick={handleSignOk}
+      />
     </div>
   );
 }
