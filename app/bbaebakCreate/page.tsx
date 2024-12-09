@@ -92,12 +92,9 @@ function BbaebakCreate() {
       if (!isStampModalShown) {
         setShowStamp(true);
         setIsModalOpen(false);
-<<<<<<< HEAD
         setIsShown(true);
-=======
         setIsStampModalShown(true);
         setShareBtn(true);
->>>>>>> dev
       }
     },
     onError: error => {
