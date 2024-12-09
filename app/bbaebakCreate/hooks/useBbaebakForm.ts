@@ -14,11 +14,12 @@ import { useState } from 'react';
 export const useBbaebakForm = () => {
   const nameValidation = useValidation('', 'name');
   const descriptionValidation = useValidation('', 'description');
-  const mateNameValidation = useValidation('');
+  const mateNameValidation = useValidation('', 'name');
 
   const [mateNames, setMateNames] = useState<string[]>([]);
   const [mateCountError, setMateCountError] = useState('');
   const [selectedDate, setSelectedDate] = useState<any>(null);
+  const [isStampSigned, setIsStampSigned] = useState(false);
 
   const handleMateNameChange = (mateName: string) => {
     if (mateNames.length >= MATE_MAX_LENGTH) {
@@ -74,5 +75,7 @@ export const useBbaebakForm = () => {
     handleMateNameChange,
     handleMateRemove,
     validateAllFields,
+    isStampSigned,
+    setIsStampSigned,
   };
 };
