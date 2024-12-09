@@ -126,7 +126,9 @@ function BbaebakCreate() {
                 error={nameValidation.error}
                 onBlur={nameValidation.handleBlur}
               />
-              은/는
+              <span className="text-gray-4 font-suit text-[15px] font-normal leading-[29px]">
+                은/는
+              </span>
             </div>
 
             <div className="flex gap-[5px]">
@@ -140,7 +142,9 @@ function BbaebakCreate() {
                 error={mateCountError}
                 onMateRemove={handleMateRemove}
               />
-              과 함께
+              <span className="text-gray-4 font-suit text-[15px] font-normal leading-[29px]">
+                과 함께
+              </span>
             </div>
 
             <div className="flex gap-[5px]">
@@ -150,7 +154,9 @@ function BbaebakCreate() {
                 error={descriptionValidation.error}
                 onBlur={descriptionValidation.handleBlur}
               />
-              를 약속합니다.
+              <span className="text-gray-4 font-suit text-[15px] font-normal leading-[29px]">
+                를 약속합니다.
+              </span>
             </div>
           </div>
 
