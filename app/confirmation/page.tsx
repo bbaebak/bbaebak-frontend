@@ -85,7 +85,7 @@ export default function Confirmation() {
 
   return (
     // <div className="flex flex-col w-[430px] h-[932px] pd">
-    <div className="flex flex-col w-full h-full overflow-y-auto scrollbar-gutter-stable pd">
+    <div className="flex flex-col w-full h-full overflow-y-auto scrollbar-gutter-stable no-scrollbar pd">
       <header className="inline-flex justify-center items-center py-0 px-[93.5px] relative mt-[34px] mb-[24px]">
         <Title status={status} />
         <RefreshButton />

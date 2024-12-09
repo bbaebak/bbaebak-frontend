@@ -37,7 +37,17 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addComponents }) {
+      addComponents({
+        '.no-scrollbar': {
+          '-webkit-scrollbar': 'none',
+          '-ms-overflow-style': 'none' /* IE 10+ */,
+          'scrollbar-width': 'none' /* Firefox */,
+        },
+      });
+    },
+  ],
   corePlugins: {
     preflight: true,
   },
