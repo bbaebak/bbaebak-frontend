@@ -39,6 +39,8 @@ function BbaebakCreate() {
     handleMateNameChange,
     handleMateRemove,
     validateAllFields,
+    isStampSigned,
+    setIsStampSigned,
   } = useBbaebakForm();
 
   useEffect(() => {
@@ -79,6 +81,7 @@ function BbaebakCreate() {
         setShowStamp(true);
         setIsModalOpen(false);
         setIsStampModalShown(true);
+        setIsStampSigned(true);
       }
     },
     onError: error => {
@@ -87,8 +90,8 @@ function BbaebakCreate() {
   });
 
   const handleSubmit = () => {
-    setIsShareModalOpen(true);
-    if (validateAllFields()) {
+    const validationError = validateAllFields();
+    if (!validationError && isStampSigned) {
       updateBbaebakMutation.mutate();
       setIsShareModalOpen(true);
     }
@@ -185,7 +188,8 @@ function BbaebakCreate() {
               selectedDate &&
               !nameValidation.error &&
               !descriptionValidation.error &&
-              !mateCountError
+              !mateCountError &&
+              isStampSigned
           )}
           onClick={() => handleSubmit()}
         />

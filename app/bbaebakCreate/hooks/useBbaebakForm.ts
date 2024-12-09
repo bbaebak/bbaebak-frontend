@@ -61,6 +61,11 @@ export const useBbaebakForm = () => {
       return ERROR_DATE_EMPTY;
     }
 
+    // 도장 검증
+    if (!isStampSigned) {
+      return '도장을 찍어주세요.';
+    }
+
     return null;
   };
 
