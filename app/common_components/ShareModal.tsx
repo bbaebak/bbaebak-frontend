@@ -10,7 +10,7 @@ interface Props {
   isVisible: boolean;
   onClose: () => void;
   onValidate: () => string | null;
-  id: string
+  id: string;
 }
 
 function ShareModal({ isVisible, onClose, onValidate, id }: Props) {
@@ -32,7 +32,7 @@ function ShareModal({ isVisible, onClose, onValidate, id }: Props) {
       return;
     }
 
-    const currentUrl = `https://bbaebak-frontend.vercel.app/confirmation?id=${id}`
+    const currentUrl = `https://bbaebak-frontend.vercel.app/confirmation?id=${id}`;
     copy(currentUrl)
       .then(() => {
         setToastMessage('링크를 복사했어요!');

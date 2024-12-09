@@ -176,6 +176,7 @@ function BbaebakCreate() {
       </div>{' '}
       {isShareModalOpen && (
         <ShareModal
+          id={id as string}
           isVisible={isShareModalOpen}
           onClose={() => setIsShareModalOpen(false)}
           onValidate={validateAllFields}
