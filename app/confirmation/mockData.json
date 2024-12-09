@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "maker": "재이",
+    "date": "12월 중으로",
+    "desc": "밥먹기밥먹기밥먹기밥먹기밥먹기밥먹기밥먹밥먹기밥먹기밥먹밥먹기밥먹먹기밥먹기밥먹",
+    "status": "signed",
+    "mates": [
+      {
+        "id": "1",
+        "name": "블랙",
+        "isSigned": false
+      },
+      {
+        "id": "2",
+        "name": "물고기",
+        "isSigned": false
+      },
+      {
+        "id": "3",
+        "name": "티아",
+        "isSigned": false
+      },
+      {
+        "id": "4",
+        "name": "스리",
+        "isSigned": false
+      },
+      {
+        "id": "5",
+        "name": "퉁퉁",
+        "isSigned": false
+      }
+    ],
+    "createdAt": "2024년 12월 7일",
+    "updatedAt": "2024년 12월 7일"
+  }
+]
