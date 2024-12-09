@@ -18,7 +18,7 @@ export const useBbaebakForm = () => {
 
   const [mateNames, setMateNames] = useState<string[]>([]);
   const [mateCountError, setMateCountError] = useState('');
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<any>(null);
 
   const handleMateNameChange = (mateName: string) => {
     if (mateNames.length >= MATE_MAX_LENGTH) {

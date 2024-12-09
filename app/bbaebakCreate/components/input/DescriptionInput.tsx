@@ -4,7 +4,7 @@ import Input from './Input';
 interface Props {
   value: string;
   onBlur: (value: string) => void;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   error: string;
 }
 
@@ -16,7 +16,7 @@ function DescriptionInput({ value, onBlur, onChange, error }: Props) {
       onBlur={onBlur}
       error={error}
       placeholder="🍚 밥 먹기"
-      containerClassName="w-[250px]"
+      isTextarea={true}
     />
   );
 }

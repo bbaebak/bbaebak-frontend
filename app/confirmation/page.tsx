@@ -82,12 +82,12 @@ export default function Confirmation() {
         <div className="flex items-start gap-4 self-stretch mt-[24px]">
           <SaveImageButton />
           <ShareButton onClick={() => setIsModalOpen(true)} />
-          {isModalOpen && (
+          {/* {isModalOpen && (
             <ShareModal
               isVisible={isModalOpen}
               onClose={() => setIsModalOpen(!isModalOpen)}
             />
-          )}
+          )} */}
         </div>
         <NewButton />
       </section>
