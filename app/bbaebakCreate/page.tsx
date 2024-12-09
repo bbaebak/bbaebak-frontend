@@ -130,7 +130,7 @@ function BbaebakCreate() {
           </div>
 
           <div className="flex gap-[5px]">
-            <DateInput value={selectedDate} onChange={setSelectedDate} />에
+            <DateInput value={selectedDate} onChange={setSelectedDate} />
           </div>
 
           <div className="flex gap-[5px]">

@@ -32,10 +32,12 @@ function Input({
   isTextarea = false,
 }: Props) {
   return (
-    <div className="flex flex-col">
-      <div className={`relative flex flex-col gap-1 ${containerClassName}`}>
+    <div className="relative">
+      <div className={containerClassName}>
         <div
-          className={`inline-flex items-center gap-2 p-1 rounded-lg border border-[#E0E0E0] bg-white ${readonly ? 'cursor-pointer' : ''}`}
+          className={`inline-flex items-center gap-2 p-1 rounded-lg border border-[#E0E0E0] bg-white ${
+            readonly ? 'cursor-pointer' : ''
+          }`}
           onClick={onClick}
         >
           {prefix && <div className="flex-shrink-0">{prefix}</div>}
@@ -46,7 +48,9 @@ function Input({
               onBlur={e => onBlur?.(e.target.value)}
               placeholder={placeholder}
               readOnly={readonly}
-              className={`pr-2 pl-2 w-[200px] h-[70px] bg-transparent border-none outline-none text-base ${className} ${readonly ? 'cursor-pointer' : ''} resize-none overscroll-hidden`}
+              className={`pr-2 pl-2 w-[200px] h-[70px] bg-transparent border-none outline-none text-base ${className} ${
+                readonly ? 'cursor-pointer' : ''
+              } resize-none overscroll-hidden`}
               rows={1}
             />
           ) : (
@@ -58,13 +62,19 @@ function Input({
               onKeyDown={onKeyDown}
               placeholder={placeholder}
               readOnly={readonly}
-              className={`pr-2 pl-2 w-full bg-transparent border-none outline-none text-base ${className} ${readonly ? 'cursor-pointer' : ''}`}
+              className={`pr-2 pl-2 w-full bg-transparent border-none outline-none text-base ${className} ${
+                readonly ? 'cursor-pointer' : ''
+              }`}
             />
           )}
           {suffix && <div className="flex-shrink-0">{suffix}</div>}
         </div>
       </div>
-      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+      {error && (
+        <div className="absolute left-0 w-max">
+          <p className="text-red-500 text-sm mt-2">{error}</p>
+        </div>
+      )}
     </div>
   );
 }

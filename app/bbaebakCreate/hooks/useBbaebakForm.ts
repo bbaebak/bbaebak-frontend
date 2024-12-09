@@ -12,8 +12,8 @@ import {
 import { useState } from 'react';
 
 export const useBbaebakForm = () => {
-  const nameValidation = useValidation('');
-  const descriptionValidation = useValidation('');
+  const nameValidation = useValidation('', 'name');
+  const descriptionValidation = useValidation('', 'description');
   const mateNameValidation = useValidation('');
 
   const [mateNames, setMateNames] = useState<string[]>([]);
