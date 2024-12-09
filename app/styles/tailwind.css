@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-display: swap;
+  }
+
+  html,
+  body {
+    font-size: 62.5%;
+  }
+
+  @font-face {
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src:
+      local('SUIT Medium'),
+      local('SUIT-Medium'),
+      url('./fonts/SUIT-Medium.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src:
+      local('SUIT SemiBold'),
+      local('SUIT-SemiBold'),
+      url('./fonts/SUIT-SemiBold.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src:
+      local('SUIT Bold'),
+      local('SUIT-Bold'),
+      url('./fonts/SUIT-Bold.woff2') format('woff2');
+  }
+}
