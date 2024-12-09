@@ -2,6 +2,7 @@ import moment from 'moment';
 import { useEffect, useRef, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { m } from 'framer-motion';
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -55,11 +56,14 @@ function CustomCalendar({ isVisible, onClose, onDateSelect }: CalendarProps) {
   }
 
   return (
-    <div
+    <m.div
       ref={calendarRef}
-      className={`transition-transform duration-300 transform ${
-        isVisible ? 'translate-y-0' : 'translate-y-full'
-      } absolute bottom-0 left-0 right-0 max-w-full bg-white shadow-xl rounded-t-lg`}
+      className="absolute bottom-0 left-0 right-0 max-w-full bg-white shadow-xl rounded-t-lg"
+      style={{ zIndex: 9999 }}
+      initial={{ y: '100%' }}
+      animate={{ y: isVisible ? '0' : '100%' }}
+      exit={{ y: '100%' }}
+      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
     >
       <div className="calendar-container p-4 border-t-4 border-primary-3 rounded-t-lg text-center p-[10px]">
         <p className="text-sm font-bold text-left text-[1.7rem]">
@@ -94,7 +98,7 @@ function CustomCalendar({ isVisible, onClose, onDateSelect }: CalendarProps) {
       >
         이 달 안에
       </button>
-    </div>
+    </m.div>
   );
 }
 

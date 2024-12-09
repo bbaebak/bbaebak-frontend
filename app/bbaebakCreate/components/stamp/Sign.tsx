@@ -13,7 +13,7 @@ export default function Sign({ maker, mates, isSigned, onClick }: SignProps) {
   const totalNames = allNames.length;
 
   return (
-    <div className="grid grid-cols-2 gap-6 justify-items-center items-center text-center text-[18px] font-light text-[#5e5e5e] h-full relative">
+    <div className="grid grid-cols-2 gap-6 justify-items-center items-center text-center text-[1.1rem] font-light text-[#5e5e5e] h-full relative">
       {allNames.map((name, index) => {
         const reversedIndex = totalNames - 1 - index;
         const gridColumn =
