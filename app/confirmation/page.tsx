@@ -114,6 +114,7 @@ export default function Confirmation() {
               <ShareModal
                 isVisible={isModalOpen}
                 onClose={() => setIsModalOpen(!isModalOpen)}
+                onValidate={() => null}
               />
             )}
           </div>
