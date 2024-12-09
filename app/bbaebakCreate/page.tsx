@@ -100,7 +100,15 @@ function BbaebakCreate() {
   };
 
   const handleButtonClick = () => {
-    if (!isStampModalShown) {
+    if (
+      nameValidation.value &&
+      descriptionValidation.value &&
+      mateNames.length > 0 &&
+      selectedDate &&
+      !nameValidation.error &&
+      !descriptionValidation.error &&
+      !mateCountError
+    ) {
       setIsModalOpen(true);
     }
   };
