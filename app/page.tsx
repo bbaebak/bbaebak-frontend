@@ -15,7 +15,7 @@ export default function App() {
   const handleDetailedCreation = () => {
     toast(
       <div className="flex items-center gap-2">
-        <Image src="/warning.svg" alt="밥약" width={24} height={21} />
+        <Image src="/warning.svg" alt="준비중" width={24} height={21} />
         <span>아직 준비중이에요!</span>
       </div>
     );
