@@ -21,7 +21,8 @@ export const postMakerSign = async ({
   isSigned: boolean;
   id: string;
 }) => {
-  const response = await patchRequest(`/api/v1/bbaebak/${id}/sign`, isSigned);
+  const payload = { isSigned };
+  const response = await patchRequest(`/api/v1/bbaebak/${id}/sign`, payload);
   return response;
 };
 

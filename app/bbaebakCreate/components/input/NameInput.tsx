@@ -4,7 +4,7 @@ import Input from './Input';
 interface Props {
   value: string;
   onBlur: (value: string) => void;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   error: string;
 }
 

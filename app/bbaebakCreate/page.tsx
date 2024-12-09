@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { updateBbaebak } from 'app/api/apiList';
+import { postMakerSign, updateBbaebak } from 'app/api/apiList';
 import SendCertificateBtn from 'app/bbaebakCreate/components/button/SendCertificateBtn';
 import DescriptionInput from 'app/bbaebakCreate/components/input/DescriptionInput';
 import MateInput from 'app/bbaebakCreate/components/input/mate/MateInput';
@@ -14,6 +14,14 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import DateInput from './components/input/DateInput';
 import { useBbaebakForm } from './hooks/useBbaebakForm';
+import {
+  ERROR_DESCRIPTION_EMPTY,
+  ERROR_NAME_EMPTY,
+} from 'app/constants/validation';
+import moment from 'moment';
+import ShareModal from 'app/common_components/ShareModal';
+import Sign from './components/stamp/Sign';
+import StampModal from 'app/common_components/StampModal';
 
 function BbaebakCreate() {
   const {
@@ -30,6 +38,11 @@ function BbaebakCreate() {
 
   const [isClient, setIsClient] = useState(false);
   const [id, setId] = useState<string | null>(null);
+  const [showStamp, setShowStamp] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isStampModalShown, setIsStampModalShown] = useState(false);
+
   const searchParams = useSearchParams();
   const queryId = searchParams.get('id');
 
@@ -53,7 +66,7 @@ function BbaebakCreate() {
         id as string
       ),
     onSuccess: () => {
-      // 성공 시 처리
+      setIsShareModalOpen(true);
     },
     onError: error => {
       console.error('실패:', error);
@@ -61,8 +74,34 @@ function BbaebakCreate() {
   });
 
   const handleSubmit = () => {
+    setIsShareModalOpen(true);
     if (validateAllFields()) {
       updateBbaebakMutation.mutate();
+      setIsShareModalOpen(true);
+    }
+  };
+
+  const makerSignedBbaebakMutation = useMutation({
+    mutationFn: () =>
+      postMakerSign({
+        isSigned: true,
+        id: id as string,
+      }),
+    onSuccess: () => {
+      if (!isStampModalShown) {
+        setShowStamp(true);
+        setIsModalOpen(false);
+        setIsStampModalShown(true);
+      }
+    },
+    onError: error => {
+      console.error(error);
+    },
+  });
+
+  const handleButtonClick = () => {
+    if (!isStampModalShown) {
+      setIsModalOpen(true);
     }
   };
 
@@ -79,7 +118,7 @@ function BbaebakCreate() {
         가벼운 빼박 증명서 만들기
       </div>
 
-      <div className="bg-[#f6f5f2] flex flex-col gap-2 p-10 pt-5 mt-[20px] min-h-[424px] h-auto rounded-[2px]">
+      <div className="bg-[#f6f5f2] flex flex-col gap-2 p-5 pt-5 mt-[20px] h-auto rounded-[2px]">
         <span className="text-[#97D0EC] text-center mb-4">
           {dayjs().format('YYYY년 MM월 DD일')}
         </span>
@@ -119,7 +158,24 @@ function BbaebakCreate() {
             를 약속합니다.
           </div>
         </div>
+
+        <div className="p-[10px_16px] self-stretch border-t border-b border-[#97D0EC] mt-auto mt-12">
+          <Sign
+            maker={nameValidation.value}
+            isSigned={showStamp}
+            onClick={handleButtonClick}
+            mates={mateNames}
+          />
+        </div>
       </div>
+
+      {isShareModalOpen && (
+        <ShareModal
+          isVisible={isShareModalOpen}
+          onClose={() => setIsShareModalOpen(false)}
+          onValidate={validateAllFields}
+        />
+      )}
 
       <div className="mt-6 text-center">
         <SendCertificateBtn
@@ -132,10 +188,15 @@ function BbaebakCreate() {
               !descriptionValidation.error &&
               !mateCountError
           )}
-          onValidate={validateAllFields}
-          onClick={handleSubmit}
+          onClick={() => handleSubmit()}
         />
       </div>
+
+      <StampModal
+        isVisible={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onClick={() => makerSignedBbaebakMutation.mutate()}
+      />
     </div>
   );
 }
