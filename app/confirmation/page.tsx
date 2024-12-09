@@ -2,6 +2,7 @@
 
 import { getBbaebakDetail } from 'app/api/apiList';
 import ShareModal from 'app/common_components/ShareModal';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import MainLinkButton from './components/button/NewButton';
 import Notice from './components/button/Notice';
@@ -11,9 +12,7 @@ import ShareButton from './components/button/ShareButton';
 import Contents from './components/contents/Contents';
 import Date from './components/contents/Date';
 import Title from './components/contents/Title';
-import { useParams } from 'next/navigation';
 import Signature from './components/sign/Signature';
-import mockData from './mockData.json';
 
 // const ID = 'd512b9ac-4d30-4fee-ae0f-444533555cd5'; // 약속 아이디 (완)
 // const ID = '877d983f-b030-48dd-8906-2fe4ba16b9c5'; // 약속 아이디 (완)
@@ -37,6 +36,8 @@ interface fetchDataType {
 
 export default function Confirmation() {
   const params = useParams<{ id: string }>();
+  const searchParams = useSearchParams();
+  const queryId = searchParams.get('id');
   const [data, setData] = useState<fetchDataType>({
     id: '',
     maker: '',
@@ -47,12 +48,11 @@ export default function Confirmation() {
     createdAt: '',
     updatedAt: '',
   });
-  const test = '테스트';
 
   useEffect(() => {
     const handleFetch = async () => {
       try {
-        const res = await getBbaebakDetail(params.id); // 아이디 생성시 params.id로 변경
+        const res = await getBbaebakDetail(queryId as string); // 아이디 생성시 params.id로 변경
         const data = res.data.data;
         setData({
           ...data,
@@ -62,7 +62,7 @@ export default function Confirmation() {
       }
     };
     handleFetch();
-  }, [params.id]);
+  }, [queryId]);
 
   const { maker, status, mates, createdAt } = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
