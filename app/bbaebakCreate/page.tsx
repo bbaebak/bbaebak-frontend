@@ -25,6 +25,7 @@ function BbaebakCreate() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isStampModalShown, setIsStampModalShown] = useState(false);
+  const [shareBtn, setShareBtn] = useState(false);
 
   const searchParams = useSearchParams();
   const queryId = searchParams.get('id');
@@ -82,6 +83,7 @@ function BbaebakCreate() {
         setIsModalOpen(false);
         setIsStampModalShown(true);
         setIsStampSigned(true);
+        setShareBtn(true);
       }
     },
     onError: error => {
@@ -181,16 +183,7 @@ function BbaebakCreate() {
       )}
       <div className="mt-6 text-center">
         <SendCertificateBtn
-          isEnabled={Boolean(
-            nameValidation.value &&
-              descriptionValidation.value &&
-              mateNames.length > 0 &&
-              selectedDate &&
-              !nameValidation.error &&
-              !descriptionValidation.error &&
-              !mateCountError &&
-              isStampSigned
-          )}
+          isEnabled={shareBtn}
           onClick={() => handleSubmit()}
         />
       </div>
