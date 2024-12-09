@@ -30,8 +30,8 @@ export default function Contents({
     <section className="flex flex-col items-start gap-[16px] pt-[16px] pb-[12px] self-stretch">
       <List value={maker} text={'은/는'} />
       <List value={date} text={'에'} />
-      <List value={mateValue} text={'과 함께'} />
-      <List value={desc} text={'를 약속합니다.'} />
+      <List value={mateValue} text={'와/과 함께'} />
+      <List value={desc} text={'을/를 약속합니다.'} />
     </section>
   );
 }

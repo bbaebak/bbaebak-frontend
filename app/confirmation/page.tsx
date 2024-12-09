@@ -32,6 +32,12 @@ interface fetchDataType {
   updatedAt: any;
 }
 
+// async function getServerSideProps({ params }) {
+//   const { id } = params;
+//   const res = await getBbaebakDetail(ID);
+//   return { props: { res } };
+// }
+
 export default function Confirmation() {
   // const params = useParams();
   const [data, setData] = useState<fetchDataType>({
@@ -61,12 +67,16 @@ export default function Confirmation() {
   }, [ID]);
 
   // const { maker, status, mates, createdAt } = data;
+  const { maker, status, mates, createdAt } = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // const getData = getServerSideProps();
+
+  // console.log('api', res);
 
   // test
-  const testData = mockData;
-  const { id, maker, date, desc, status, mates, createdAt, updatedAt } =
-    testData[0];
+  // const testData = mockData;
+  // const { id, maker, date, desc, status, mates, createdAt, updatedAt } =
+  //   testData[0];
 
   return (
     // <div className="flex flex-col w-[430px] h-[932px] pd">
