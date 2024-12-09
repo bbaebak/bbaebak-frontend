@@ -11,9 +11,10 @@ interface Props {
   onClose: () => void;
   onValidate: () => string | null;
   id: string;
+  userName: any;
 }
 
-function ShareModal({ isVisible, onClose, onValidate, id }: Props) {
+function ShareModal({ isVisible, onClose, onValidate, id, userName }: Props) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const [_, copy] = useCopyToClipboard();
@@ -82,7 +83,7 @@ function ShareModal({ isVisible, onClose, onValidate, id }: Props) {
 
           <div className="flex flex-row items-center justify-between w-[200px] mt-[30px]">
             <div className="flex flex-col items-center justify-center gap-4">
-              <KakaoShareButton />
+              <KakaoShareButton userName={userName} />
               <p>카카오톡</p>
             </div>
 

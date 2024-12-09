@@ -3,30 +3,35 @@
 import Image from 'next/image';
 import kakaoIcon from '@public/kakaoIcon.svg';
 
-export default function KakaoShareButton() {
+export default function KakaoShareButton({ userName }: any) {
   const handleShearToKakao = () => {
     const { Kakao, location } = window;
-    Kakao.Share.sendScrap({
-      requestUrl: location.href,
+
+    Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: '나랑 빼박할거지????????????????!!!!!!!!!!!!!!!!',
+        description: `${userName}님이 빼박 약속을 요청하였어요!`,
+        imageUrl: '/thumbnail_home.png',
+        imageWidth: 100,
+        imageHeight: 100,
+
+        link: {
+          mobileWebUrl: location.href,
+          webUrl: location.href,
+        },
+      },
+      buttons: [
+        {
+          title: '빼박 바로가기',
+          link: {
+            mobileWebUrl: location.href,
+            webUrl: location.href,
+          },
+        },
+      ],
     });
   };
-  // const handleShare = () => {
-  //   if (typeof window !== 'undefined' && window.Kakao) {
-  //     const { Kakao } = window;
-
-  //     Kakao.Share.sendDefault({
-  //       objectType: 'text',
-  //       text: description,
-  //       link: {
-  //         mobileWebUrl: shareUrl,
-  //         webUrl: shareUrl,
-  //       },
-  //     });
-  //   } else {
-  // 이거 왜 푸시가 안되니이ㅣ이이 -> ㅋㅋㅋㅋ 퉁퉁 귀욥다 ;;
-  //     console.log('Kakao SDK가 로드되지 않았습니다.');
-  //   }
-  // };
 
   return (
     <div

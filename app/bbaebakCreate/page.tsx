@@ -189,6 +189,7 @@ function BbaebakCreate() {
           isVisible={isShareModalOpen}
           onClose={() => setIsShareModalOpen(false)}
           onValidate={validateAllFields}
+          userName={nameValidation.value}
         />
       )}
       <div className="mt-6 text-center">
