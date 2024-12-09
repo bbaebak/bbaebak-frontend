@@ -81,7 +81,6 @@ function BbaebakCreate() {
       if (!isStampModalShown) {
         setShowStamp(true);
         setIsModalOpen(false);
-        setIsShown(true);
         setIsStampModalShown(true);
         setIsStampSigned(true);
         setShareBtn(true);
