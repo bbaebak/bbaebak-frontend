@@ -14,14 +14,12 @@ export default function SaveImageButton() {
     link.href = canvas.toDataURL('image/png');
     link.download = 'bbaebak-certificate.png';
     link.click(); // 사용자가 클릭하지 않아도 다운로드 동작 실행됨
-
-    console.log('이미 저장히기', signDocument);
   };
 
   return (
     <button
       onClick={handleSaveImage}
-      className="flex p-4 justify-center items-center flex-1 rounded-lg bg-[#F8F8F8] text-[#5E5E5E] font-suit text-[17px] font-bold"
+      className="flex p-4 justify-center items-center flex-1 rounded-lg bg-[#F8F8F8] text-[#5E5E5E] font-suit text-[17px] font-bold flex p-4 justify-center items-center flex-[1_0_0] hover:bg-[#DCEFF9] transition rounded-lg border hover:border-[#97D0EC]  p-4 text-[#000] font-suit text-[17px] font-bold leading-normal hover:text-[#000]"
     >
       갤러리에 저장하기
     </button>

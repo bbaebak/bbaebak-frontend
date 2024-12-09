@@ -7,7 +7,7 @@ export default function RefreshButton() {
   return (
     <button
       onClick={handleClick}
-      className="w-[24px] h-[24px] shrink-0 absolute top-0 right-0"
+      className="w-[24px] h-[24px] shrink-0 absolute inset-y-0 right-[24px] my-auto"
     >
       <Image src="/refresh.svg" alt="새로고침" width={24} height={24} />
     </button>

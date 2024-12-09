@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default function NewButton() {
+export default function MainLinkButton() {
   return (
     <Link href="/">
       <button className="flex h-[53px] p-4 justify-center items-center self-stretch mt-6 w-full rounded-lg bg-[#51B1E0] text-white font-suit text-[17px] font-bold">

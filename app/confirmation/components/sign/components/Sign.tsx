@@ -2,46 +2,68 @@
 
 import { useState } from 'react';
 import Stamp from './Stamp';
+import StampModal from 'app/common_components/StampModal';
 
 interface SignProps {
-  value: string;
+  name: string;
   id: string;
+  maker: string;
   isSigned: boolean;
   className: string;
+  onEdit: boolean;
   onClick: (id: string) => void;
 }
 
 export default function Sign({
-  value,
+  name,
   id,
+  maker,
   isSigned,
   className,
+  onEdit,
   onClick,
 }: SignProps) {
-  const [onSign, setOnSign] = useState(isSigned);
-  const handleClick = () => {
-    if (onSign) {
+  // const [onSign, setOnSign] = useState(isSigned);
+  // const [isModal, setIsModal] = useState(false);
+
+  const handleClick = async () => {
+    if (isSigned) {
       return;
     }
-    onClick(id);
-    setOnSign(true);
+    console.log('클릭했다???');
+
+    if (onEdit) {
+      onClick(id);
+    }
+
+    // const sign = await onEdit()
+
+    // setOnSign(true);
   };
+
   return (
     <div
-      className={`${onSign ? 'text-red-500' : 'text-black'} flex fle-col  gap-[24px] ${className}`}
+      className={`flex justify-center items-center text-[#454545] font-suit text-[18px] font-medium leading-normal cursor-pointer ${className}`}
       onClick={handleClick}
+      z-index
     >
-      <p>{value}</p>
-      <div className="relative inline-block">
-        <p className="inline">인</p>
-        {onSign && (
+      <div className="min-w-[60px] text-right">{name}</div>
+      <div className="relative w-[200px] flex items-center justify-center ">
+        <p className="absolute z-0">(인)</p>
+        {isSigned && (
           <Stamp
             className={
-              'absolute  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'
+              'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10'
             }
           />
         )}
       </div>
+      {/* <StampModal
+        isVisible={isModal}
+        name={maker}
+        onClose={handleModalClose}
+        onClick={handleSignOk}
+      /> */}
     </div>
   );
 }

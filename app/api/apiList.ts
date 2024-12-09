@@ -27,14 +27,19 @@ export const postMakerSign = async ({
 };
 
 // 메이트 서명
-export const postMateSign = async (
-  isSigned: boolean,
-  id: string,
-  mateId: string
-) => {
+export const postMateSign = async ({
+  isSigned,
+  id,
+  mateId,
+}: {
+  isSigned: boolean;
+  id: string;
+  mateId: string;
+}) => {
+  const payload = { isSigned };
   const response = await patchRequest(
-    `/bbaebak/${id}/sign/:${mateId}`,
-    isSigned
+    `/api/v1/bbaebak/${id}/sign/${mateId}`,
+    payload
   );
   return response;
 };
