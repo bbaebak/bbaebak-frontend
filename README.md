@@ -2,10 +2,6 @@
 ===
 <img width="1775" alt="thumbnail" src="https://github.com/user-attachments/assets/33c02a0b-db36-428e-97cf-91a0fadf4c33">
 
-## Table of Contents
-
-[TOC]
-
 ## Project Description
 
 구두로 받은 약속, 잊어버린 적 없으신가요?
@@ -18,8 +14,8 @@
 
 Project Purpose
 ---
-구두로 한 약속을 **디지털 증명서**화하여 기록하고,
-이행 여부를 **추적 및 관리**할 수 있는 기능을 제공합니다.
+구두로 한 약속을 디지털 증명서화하여 기록하고,
+이행 여부를 추적 및 관리할 수 있는 기능을 제공합니다.
 
 Target User
 ---
@@ -28,19 +24,19 @@ Target User
 Main Features
 ---
 :::info
-가벼운 약속 **생성**하기
+가벼운 약속 생성하기
 :::
 <img width="1775" alt="make" src="https://github.com/user-attachments/assets/e785b63b-623f-4a59-87a8-9b13d6c0e0e8">
 약속 참여자와 예상 날짜, 내용 입력으로 쉽게 빼박 증명서를 만들 수 있습니다.
 
 :::info
-약속 **참여**하기
+약속 참여하기
 :::
 <img width="1775" alt="receive" src="https://github.com/user-attachments/assets/aed42d0d-aaa2-4c85-b2ea-305851bafe92">
 링크로 공유받은 증명서에 도장을 찍어서 참여 여부를 표시할 수 있습니다.
 
 :::info
-증명서 **공유/저장**하기
+증명서 공유/저장하기
 :::
 <img width="1775" alt="save" src="https://github.com/user-attachments/assets/5817b59c-4460-4673-b948-cb4d4578b7f6">
 모두가 약속을 확인하면 증명서를 이미지로 공유하거나 저장할 수 있습니다.
