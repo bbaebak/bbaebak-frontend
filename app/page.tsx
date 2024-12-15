@@ -1,5 +1,6 @@
 'use client';
 import { useMutation } from '@tanstack/react-query';
+import { postBbaebak } from 'app/api/apiList';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -26,20 +27,7 @@ import { toast } from 'sonner';
 //     icon: '/favicon.ico',
 //   },
 // };
-const postBbaebak = async () => {
-  const response = await fetch(
-    'https://port-0-bbaebak-nestjs-m4eg5ca3338e8c5c.sel4.cloudtype.app/api/v1/bbaebak',
-    {
-      method: 'POST',
-    }
-  );
 
-  if (!response.ok) {
-    throw new Error('약속 생성 실패');
-  }
-
-  return await response.json(); // API 응답 데이터를 반환
-};
 export default function App() {
   const [id, setId] = useState<string>('');
 
@@ -55,11 +43,9 @@ export default function App() {
     onSuccess: data => {
       setId(data.data.id); // 약속 ID를 저장
       toast.success('약속이 생성되었습니다!', { duration: 15000 });
-      console.log('요청성공', data.data.id);
     },
-    onError: error => {
+    onError: () => {
       toast.error('약속 생성 중 오류가 발생했습니다.');
-      console.error(error);
     },
   });
 
@@ -80,16 +66,15 @@ export default function App() {
   };
 
   return (
-    <div no-scrollbar>
-      <main className="flex flex-col mt-5 rounded-xl bg-white px-4 py-6 ">
-        {/* Main Title */}
+    <div>
+      <main className="flex flex-col mt-5 rounded-xl bg-white px-4 py-6">
         <div className="space-y-2 mb-8 ">
           <h1 className="text-black text-[28px] ml-6 font-semibold">
             말로만 만나자는 약속,
             <br />
             진심으로 만나고 싶다면?
           </h1>
-          <div className="text-zinc-700 text-[18px] ml-6 font-medium ">
+          <div className="text-zinc-700 text-[18px] ml-6 font-medium">
             빼박으로 가볍게 약속 증명서 만들자!
           </div>
         </div>
